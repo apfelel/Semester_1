@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
     private Grapple _grapple;
+    private PlayerDash _playerDash;
 
 
     private PlayerInputActions _playerInputActions;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _jump;
     private InputAction _shoot;
     private InputAction _sprint;
+    private InputAction _dash;
 
     private Rigidbody2D _rb;
 
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool _jumped;
+    private Vector2 _moveInput;
 
     private void OnEnable()
     {
@@ -90,6 +93,10 @@ public class PlayerController : MonoBehaviour
         _sprint.performed += _playerMovement.StartSprint;
         _sprint.canceled += _playerMovement.EndSprint;
         _sprint.Enable();
+
+        _dash = _playerInputActions.Player.Dash;
+        _dash.performed += Dash;
+        _dash.Enable();
     }
 
 
@@ -99,10 +106,12 @@ public class PlayerController : MonoBehaviour
         _move.Disable();
         _jump.Disable();
         _shoot.Disable();
+        _sprint.Disable();
     }
 
     void Awake()
     {
+        _playerDash = GetComponent<PlayerDash>();
         _rb = GetComponent<Rigidbody2D>();
         _playerInputActions = new PlayerInputActions();
         _playerMovement = GetComponent<PlayerMovement>();
@@ -118,9 +127,8 @@ public class PlayerController : MonoBehaviour
         if (Physics2D.Raycast(_groundedRayPos.position, Vector2.down, 0.1f, _groundLayer) &! Jumped)
             IsGrounded = true;
 
-        Vector2 moveInput = _move.ReadValue<Vector2>();
-
-        _playerMovement.Move(moveInput.x);
+        _moveInput = _move.ReadValue<Vector2>();
+        _playerMovement.Move(_moveInput.x);
 
         if (IsGroundedBuffered)
         {
@@ -138,5 +146,9 @@ public class PlayerController : MonoBehaviour
     public void SkipGroundedBuffer()
     {
         _lastGrounded = 500;
+    }
+    public void Dash(InputAction.CallbackContext obj)
+    {
+        _playerDash.Dash(_moveInput);
     }
 }
