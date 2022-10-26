@@ -1,35 +1,47 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(
+    typeof(PlayerInputActions))]
+
+[RequireComponent(
+    typeof(PlayerMovement),
+    typeof(Grapple),
+    typeof(PlayerDash))]
+
+[RequireComponent(
+    typeof(PlayerWallClimb))]
 public class PlayerController : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
     private Grapple _grapple;
     private PlayerDash _playerDash;
-
+    private PlayerWallClimb _wallClimb;
 
     private PlayerInputActions _playerInputActions;
-    private InputAction _move;
-    private InputAction _jump;
-    private InputAction _shoot;
-    private InputAction _sprint;
-    private InputAction _dash;
+    private InputAction _moveAction;
+    private InputAction _jumpAction;
+    private InputAction _grappleAction;
+    private InputAction _dashAction;
+    private InputAction _verticalAction;
 
-    private Rigidbody2D _rb;
-
+    public Rigidbody2D Rb;
     [Header("Hook Things")]
     [HideInInspector]
     public bool IsHooked;
+    [HideInInspector]
     public List<GameObject> AnchorsInScene = new List<GameObject>();
 
     [Header("Grounded Things")]
     [SerializeField]
-    private float _groundedBuffer;
+    private float _coyoteTime;
     [SerializeField]
     private Transform _groundedRayPos;
+
     [SerializeField]
     private LayerMask _groundLayer;
 
@@ -39,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            if (_lastGrounded < _groundedBuffer &! Jumped)
+            if (_lastGrounded < _coyoteTime)
                 return true;
             return false;
         }
@@ -59,96 +71,216 @@ public class PlayerController : MonoBehaviour
             _isGrounded = value;        
         }
     }
+    private float _groundDeny;
 
-    public bool Jumped 
-    { 
-        get => _jumped; 
-        set 
-        { 
-            _jumped = value;
-            _lastGrounded = 500;
-        } 
-    }
+    [Header("Jump Things")]
 
     private bool _jumped;
-    private Vector2 _moveInput;
+    private float _moveInput;
+    [HideInInspector]
+    public bool Jumped
+    {
+        get => _jumped;
+        set
+        {
+            _jumped = value;
+            _lastGrounded = 500;
+        }
+    }
+    private float _jumpBuffer;
+
+    [Header("Wall Things")]
+    private bool _isWallsliding;
+    public bool IsWallsliding
+    {
+        get
+        {
+            return _isWallsliding;
+        }
+        set
+        {
+            if (value == true)
+                _lastWallSlide = 0;
+            _isWallsliding = value;
+        }
+    }
+    [SerializeField]
+    private Transform _wallRayPos;
+    private float _lastWallSlide;
+    [HideInInspector]
+    public bool IsWallSlidingBuffered
+    {
+        get
+        {
+            if (_lastWallSlide < _coyoteTime)
+                return true;
+            return false;
+        }
+    }
+    private bool _isWallInFront;
+    private Vector2 _lastWallHitPos;
 
     private void OnEnable()
     {
         
-        _move = _playerInputActions.Player.Move;
-        _move.Enable();
+        _moveAction = _playerInputActions.Player.Move;
+        _moveAction.Enable();
 
-        _jump = _playerInputActions.Player.Jump;
-        _jump.performed += _playerMovement.Jump;
-        _jump.canceled += _playerMovement.ShortenJump;
-        _jump.Enable();
+        _jumpAction = _playerInputActions.Player.Jump;
+        _jumpAction.canceled += JumpReleased;
+        _jumpAction.performed += Jump;
+        _jumpAction.Enable();
 
-        _shoot = _playerInputActions.Player.Fire;
-        _shoot.performed += _grapple.StartGrapple;
-        _shoot.canceled += _grapple.EndGrapple;
-        _shoot.Enable();
+        _grappleAction = _playerInputActions.Player.Grapple;
+        _grappleAction.performed += StartGrapple;
+        _grappleAction.canceled += EndGrapple;
+        _grappleAction.Enable();
 
-        _sprint = _playerInputActions.Player.Sprint;
-        _sprint.performed += _playerMovement.StartSprint;
-        _sprint.canceled += _playerMovement.EndSprint;
-        _sprint.Enable();
+        _dashAction = _playerInputActions.Player.Dash;
+        _dashAction.performed += Dash;
+        _dashAction.Enable();
 
-        _dash = _playerInputActions.Player.Dash;
-        _dash.performed += Dash;
-        _dash.Enable();
+        _verticalAction = _playerInputActions.Player.Vertical;
+        _verticalAction.Enable();
     }
 
+    
 
     private void OnDisable()
     {
-        _sprint.Disable();
-        _move.Disable();
-        _jump.Disable();
-        _shoot.Disable();
-        _sprint.Disable();
+        _moveAction.Disable();
+        _jumpAction.Disable();
+        _grappleAction.Disable();
+        _dashAction.Disable();
+        _verticalAction.Disable();
     }
 
     void Awake()
     {
         _playerDash = GetComponent<PlayerDash>();
-        _rb = GetComponent<Rigidbody2D>();
+        Rb = GetComponent<Rigidbody2D>();
         _playerInputActions = new PlayerInputActions();
         _playerMovement = GetComponent<PlayerMovement>();
         _grapple = GetComponent<Grapple>();
-
+        _wallClimb = GetComponent<PlayerWallClimb>();
         AnchorsInScene = new List<GameObject>(GameObject.FindGameObjectsWithTag("Anchor"));
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        _groundDeny -= Time.deltaTime;
         _lastGrounded += Time.deltaTime;
+        _lastWallSlide += Time.deltaTime;
         IsGrounded = false;
-        if (Physics2D.Raycast(_groundedRayPos.position, Vector2.down, 0.1f, _groundLayer) &! Jumped)
+        _isWallInFront = false;
+
+        if (Physics2D.Raycast(_groundedRayPos.position, Vector2.down, 0.1f, _groundLayer) &! Jumped && Rb.velocity.y < 0.01f && _groundDeny < 0)
             IsGrounded = true;
-
-        _moveInput = _move.ReadValue<Vector2>();
-        _playerMovement.Move(_moveInput.x);
-
-        if (IsGroundedBuffered)
+        RaycastHit2D hit = Physics2D.Raycast(_wallRayPos.position, transform.right, 0.3f, _groundLayer);
+        if (hit == true)
         {
-            if (_rb.velocity.x < 0)
+            _isWallInFront = true;
+            _lastWallHitPos = hit.point;
+        }
+        if (Jumped && Rb.velocity.y < 0)
+            Jumped = false;
+
+        _moveInput = _moveAction.ReadValue<float>();
+        _playerMovement.Move(_moveInput, IsGrounded, IsHooked);
+        
+
+        if (!IsHooked && _isWallInFront && !IsGroundedBuffered && _moveInput != 0)
+        {
+            IsWallsliding = true;
+            _wallClimb.StartWallSlide();
+        }
+        else
+        {
+            IsWallsliding = false;
+            _wallClimb.EndWallSlide();
+        }
+
+        _jumpBuffer -= Time.deltaTime;
+        if (_jumpBuffer > 0 && !IsHooked && IsGroundedBuffered & !IsWallsliding & !Jumped)
+        {
+            if (!_jumpAction.IsPressed())
             {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
+                _playerMovement.Jump(true);
             }
-            if (_rb.velocity.x > 0 )
+            else
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                _playerMovement.Jump(false);
+                Jumped = true;
             }
+            _jumpBuffer = -1;
+        }
+        if (_jumpBuffer > 0 && !IsHooked & !IsGrounded && IsWallSlidingBuffered)
+        {
+            _jumpBuffer = -1;
+            _wallClimb.JumpOff(_lastWallHitPos);
         }
     }
 
     public void SkipGroundedBuffer()
     {
+        Debug.Log(Rb.velocity.y);
         _lastGrounded = 500;
+        _groundDeny = 0.5f;
     }
     public void Dash(InputAction.CallbackContext obj)
     {
-        _playerDash.Dash(_moveInput);
+        if(!IsHooked)
+            _playerDash.Dash(new Vector2(_moveInput, _verticalAction.ReadValue<float>()).normalized);
+    }
+    private void Jump(InputAction.CallbackContext obj)
+    {
+        _jumpBuffer = _coyoteTime;
+        _grapple.StartDrawingIn();
+    }
+    private void JumpReleased(InputAction.CallbackContext obj)
+    {
+        _grapple.StopDrawingIn();
+
+        if (Jumped)
+        {
+            Jumped = false;
+            _playerMovement.ShortenJump();
+        }
+    }
+    private void StartGrapple(InputAction.CallbackContext obj)
+    {
+        _grapple.StartGrapple(GetAvailableHook());
+        IsHooked = true;
+    }
+    private void EndGrapple(InputAction.CallbackContext obj)
+    {
+        _grapple.EndGrapple();
+        IsHooked = false;
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawLine(_groundedRayPos.position, _groundedRayPos.position - new Vector3(0, 0.1f, 0));
+        Gizmos.DrawLine(_wallRayPos.position, _wallRayPos.position + transform.right * 0.3f);
+    }
+    private GameObject GetAvailableHook()
+    {
+        float nearestDist = int.MaxValue;
+        GameObject nearestGb = null;
+        foreach (var anchor in AnchorsInScene)
+        {
+            var temp = Vector2.Distance(anchor.transform.transform.position, transform.transform.position);
+            if (Vector2.Distance(anchor.transform.transform.position, transform.transform.position) < nearestDist)
+            {
+                nearestDist = temp;
+                nearestGb = anchor;
+            }
+        }
+        return nearestGb;
+    }
+
+    public void Die()
+    {
+
     }
 }
