@@ -15,7 +15,8 @@ public class JumpPad : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             var pc = collision.GetComponent<PlayerController>();
-            if (!pc.Jumped)
+            var pv = collision.GetComponent<PlayerVar>();
+            if (!pv.Jumped)
             {
                 pc.Rb.velocity = new Vector2(pc.Rb.velocity.x, 0);
                 pc.Rb.AddForce((_direction == Vector2.zero ? (Vector2)transform.up : _direction) * _force);

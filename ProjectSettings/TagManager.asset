@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Anchor
   - Exit
+  - ClimbableWall
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Floor
   - Hair
   - Player
-  - 
+  - ClimbableWalll
   - 
   - 
   - 

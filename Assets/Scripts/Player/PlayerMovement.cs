@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D _rb;
+    private PlayerVar _playerVar;
 
     [TabGroup("Speed")]
     [SerializeField]
@@ -31,20 +32,14 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _playerVar = GetComponent<PlayerVar>();
     }
     public void Move(float dir, bool isGrounded, bool isHooked)
     {
         var signedDir = 0;
         if (dir != 0)
             signedDir = MathF.Sign(dir);
-        if (_rb.velocity.x < -0.1f)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        if (_rb.velocity.x > 0.1f)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        
 
         float damp;
         int hasSpeedLimit= 1;
@@ -68,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
         curSpeed *= 1 - (_groundedDamp * damp) * hasSpeedLimit;
 
-        _rb.velocity = new Vector2(curSpeed, _rb.velocity.y);
+        _rb.velocity = new Vector2(curSpeed, Mathf.Min(_rb.velocity.y, _playerVar.TerminalVelY));
     }
     public void Jump(bool shortenedJump = false)
     {

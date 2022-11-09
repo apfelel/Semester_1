@@ -68,6 +68,12 @@ public class GameManager : MonoSingleton<GameManager>
     }
     private GameObject ReloadPlayer()
     {
+        GameObject gb = GameObject.FindGameObjectWithTag("Player");
+        if(gb != null)
+        {
+            Destroy(gb.transform.parent.gameObject);
+        }
+
         var player = Instantiate(_playerPrefab).transform.GetChild(0).gameObject;
         _playerController = player.GetComponent<PlayerController>();
         _playerCinematic = player.GetComponent<CinematicActor>();
@@ -76,7 +82,6 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public bool CheckIfLeaving(Direction dir)
     {
-        Debug.Log(dir + "   " + _playerRb.velocity.y);
         switch (dir)
         {
             case Direction.Up:

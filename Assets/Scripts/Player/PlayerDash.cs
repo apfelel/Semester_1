@@ -19,11 +19,13 @@ public class PlayerDash : MonoBehaviour
     public bool Dashing;
 
     private PlayerController _playerController;
+    private PlayerVar _playerVar;
     private Rigidbody2D _rb;
 
     // Start is called before the first frame update
     void Start()
     {
+        _playerVar = GetComponent<PlayerVar>();
         _playerController = GetComponent<PlayerController>();
         _rb = GetComponent<Rigidbody2D>();
     }
@@ -32,7 +34,7 @@ public class PlayerDash : MonoBehaviour
     void Update()
     {
         if(!_hasDash &!Dashing)
-            if(_playerController.IsGrounded)
+            if(_playerVar.IsGrounded)
                 _hasDash = true;
         if(Dashing)
         {
@@ -43,19 +45,19 @@ public class PlayerDash : MonoBehaviour
     public void Dash(Vector2 dir)
     {
 
-        if (_hasDash && !Dashing & ! _playerController.IsHooked)
+        if (_hasDash && !Dashing & !_playerVar.IsHooked)
         {
-            var dot = Vector2.Dot(dir, _rb.velocity.normalized);
+            var dot = Vector2.Dot(dir, _rb.velocity.normalized) + _strength - 1;
 
-            if ((dot * _rb.velocity * 1.3f).magnitude < _minSpeed)
+            //if (Mathf.Abs((dot * _rb.velocity).magnitude) < _minSpeed)
             {
                 _dashForce = dir * _minSpeed;
                 _endSpeed = _dashForce;
             }
-            else
+            // else
             {
-                _endSpeed = _rb.velocity.magnitude * dot * dir;
-                _dashForce = _endSpeed * 1.3f;
+            //     _dashForce = Mathf.Abs(_rb.velocity.magnitude) * dot * dir;
+            //     _endSpeed = _dashForce / ((_strength - 1) / 2 + 1) ;
             }
             Debug.Log(dot);
             Debug.Log(_dashForce);
@@ -74,5 +76,10 @@ public class PlayerDash : MonoBehaviour
         Dashing = false;
         _rb.gravityScale = 2;
         _rb.velocity = _endSpeed;
+    }
+
+    public void RegainDash()
+    {
+        _hasDash = true;
     }
 }
