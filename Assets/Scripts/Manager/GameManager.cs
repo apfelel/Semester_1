@@ -6,32 +6,73 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    public bool IsActive;
+    [HideInInspector]
+    public int ChallengeCollectibles;
+    [HideInInspector]
+    public int Collectibles;
+
     [SerializeField]
     private float _delay;
     [SerializeField]
     private GameObject _playerPrefab;
+    private GameObject _player;
     private Direction? _exit = null;
-    private PlayerController _playerController;
+    private PlayerAnimationController _playerAnimController;
     private CinematicActor _playerCinematic;
     private Rigidbody2D _playerRb;
+    private GameObject _entry;
+    private SpawnPoint _spawnPoint;
 
+    private void OnEnable()
+    {
+        if (IsActive)
+            Activate();
+    }
     public enum Direction
     {
         Up, Right, Down, Left, 
     }
-    private void OnEnable()
+    public void Activate()
     {
         SceneManager.sceneLoaded += OnSceneChanged;
-        DontDestroyOnLoad(this);
+        IsActive = true;
     }
-    public void ReloadScene()
+    public void Deactivate()
     {
-        _playerController.Die();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.sceneLoaded -= OnSceneChanged;
+        IsActive = false;
+    }
+    public void Die()
+    {
+        ResetPlayer();
+        _playerAnimController.DeathAnim();
+        StartCoroutine(DeathDelay());
+    }
+    private IEnumerator DeathDelay()
+    {
+        _playerCinematic.Freeze(1);
+        yield return new WaitForSeconds(1);
+        if (_spawnPoint == null)
+            _player.transform.position = _entry.transform.position;
+        else
+            _player.transform.position = _spawnPoint.transform.position;
+
+        _playerCinematic.MoveXSec(0, 2);
+        yield return new WaitForSeconds(1);
+        _playerAnimController.RespawnAnim();
+        yield return new WaitForSeconds(1);
     }
 
+    private void ResetPlayer()
+    {
+        _playerRb.velocity = Vector2.zero;
+    }
     public void LoadNextLevel(string lvl, Direction dir)
     {
+        Collectibles += ChallengeCollectibles;
+        ChallengeCollectibles = 0;
+
         _exit = dir;
         StartCoroutine(NextLvlDelay(lvl));
     }
@@ -42,6 +83,8 @@ public class GameManager : MonoSingleton<GameManager>
             _playerCinematic.MoveXSec(-1, _delay);
         else if (_exit == Direction.Right)
             _playerCinematic.MoveXSec(1, _delay);
+        else
+            _playerCinematic.MoveXSec(0, _delay);
 
         yield return new WaitForSeconds(_delay);
         SceneManager.LoadScene(lvl);
@@ -52,10 +95,10 @@ public class GameManager : MonoSingleton<GameManager>
         var player = ReloadPlayer();
         if (_exit == null) return;
 
-        var entry = GameObject.FindGameObjectsWithTag("Exit").FirstOrDefault(e => (int)e.GetComponent<Exit>().Direction == ((int)_exit + 6) % 4);
-        if (entry == null) return;
+        _entry = GameObject.FindGameObjectsWithTag("Exit").FirstOrDefault(e => (int)e.GetComponent<Exit>().Direction == ((int)_exit + 6) % 4);
+        if (_entry == null) return;
 
-        player.transform.position = entry.transform.position;
+        player.transform.position = _entry.transform.position;
         if (_exit == Direction.Left)
             _playerCinematic.MoveXSec(-1, _delay);
         else if (_exit == Direction.Right)
@@ -65,6 +108,8 @@ public class GameManager : MonoSingleton<GameManager>
         {
             _playerRb.AddForce(transform.up * 700);
         }
+
+        Debug.Log("test");
     }
     private GameObject ReloadPlayer()
     {
@@ -74,11 +119,11 @@ public class GameManager : MonoSingleton<GameManager>
             Destroy(gb.transform.parent.gameObject);
         }
 
-        var player = Instantiate(_playerPrefab).transform.GetChild(0).gameObject;
-        _playerController = player.GetComponent<PlayerController>();
-        _playerCinematic = player.GetComponent<CinematicActor>();
-        _playerRb = player.GetComponent<Rigidbody2D>();
-        return player;
+        _player = Instantiate(_playerPrefab).transform.GetChild(0).gameObject;
+        _playerAnimController = _player.GetComponent<PlayerAnimationController>();
+        _playerCinematic = _player.GetComponent<CinematicActor>();
+        _playerRb = _player.GetComponent<Rigidbody2D>();
+        return _player;
     }
     public bool CheckIfLeaving(Direction dir)
     {
@@ -95,5 +140,13 @@ public class GameManager : MonoSingleton<GameManager>
                 default: return false;
 
         }
+    }
+
+    public void NewSpawnPoint(SpawnPoint spawnPoint)
+    {
+        _spawnPoint?.ChangeState(false);
+        _spawnPoint = spawnPoint;
+        _spawnPoint.ChangeState(true);
+        Debug.Log("New Checkpoint");
     }
 }

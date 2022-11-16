@@ -8,7 +8,7 @@ public class DeathZone : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            GameManager.Instance.ReloadScene();
+            GameManager.Instance.Die();
         }
     }
 }

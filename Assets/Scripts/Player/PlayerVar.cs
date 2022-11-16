@@ -128,10 +128,12 @@ public class PlayerVar : MonoBehaviour
         IsGrounded = false;
         IsWallInFront = false;
 
+        var dir = -(GroundedRayPos.parent.parent.transform.localRotation.y) * 2 + 1;
+
         if (Physics2D.Raycast(GroundedRayPos.position, Vector2.down, 0.1f, GroundLayer) & !Jumped && _rb.velocity.y < 0.01f && GroundDeny < 0)
             IsGrounded = true;
-        RaycastHit2D hitLow = Physics2D.Raycast(WallLowerRayPos.position, transform.right, 0.3f, WallHitLayer);
-        RaycastHit2D hitHigher = Physics2D.Raycast(WallUpperRayPos.position, transform.right, 0.3f, WallHitLayer);
+        RaycastHit2D hitLow = Physics2D.Raycast(WallLowerRayPos.position, transform.right, 0.3f * dir, WallHitLayer);
+        RaycastHit2D hitHigher = Physics2D.Raycast(WallUpperRayPos.position, transform.right, 0.3f * dir, WallHitLayer);
         if (hitLow == true && hitHigher == true)
         {
             IsWallInFront = true;

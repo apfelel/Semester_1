@@ -8,10 +8,14 @@ public class PlayerAnimationController : MonoBehaviour
     private Rigidbody2D _rb;
     private PlayerVar _playerVar;
     private Grapple _grapple;
-    private int _rotY;
 
     [SerializeField]
-    private GameObject _desiredRotation;
+    private GameObject _rotationObject;
+    [SerializeField]
+    private GameObject _gfx;
+
+    [SerializeField]
+    private GameObject _hair;
     private void Start()
     {
         _playerVar = GetComponent<PlayerVar>();
@@ -35,25 +39,26 @@ public class PlayerAnimationController : MonoBehaviour
         if(_playerVar.Jumped || !_playerVar.IsGrounded)
         {
             _anim.SetBool("Midair", true);
-            Debug.Log(Mathf.Clamp(Mathf.RoundToInt(_rb.velocity.y + 3), 0, 4));
         }
         else
         {
             _anim.SetBool("Midair", false);
         }
 
-        _anim.SetBool("Wallslide", _playerVar.IsWallsliding);
+        _anim.SetBool("Wallslide", _playerVar.IsWallsliding && _rb.velocity.y < 0);
         _anim.SetBool("Hooked", _playerVar.IsHooked);
 
 
         
         if (_rb.velocity.x < -0.1f)
         {
-            _rotY = 180;
+            _gfx.transform.localScale = new Vector3(-1, 1, 1);
+            _rotationObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         if (_rb.velocity.x > 0.1f)
         {
-            _rotY = 0;
+            _gfx.transform.localScale = new Vector3(1, 1, 1);
+            _rotationObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         if (_playerVar.IsHooked)
         {
@@ -63,6 +68,17 @@ public class PlayerAnimationController : MonoBehaviour
         {
             transform.up = Vector2.Lerp(transform.up, Vector2.up, Time.deltaTime * 10);
         }
-        transform.Rotate(0, _rotY, 0);
+    }
+    public void DeathAnim()
+    {
+        _anim.Play("Death");
+        _hair.SetActive(false);
+    }
+    public void RespawnAnim()
+    {
+        _anim.Play("Spawn");
+        _hair.SetActive(true);
     }
 }
+
+

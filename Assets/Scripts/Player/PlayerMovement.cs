@@ -60,9 +60,7 @@ public class PlayerMovement : MonoBehaviour
         float curSpeed = _rb.velocity.x;
 
         curSpeed += signedDir * _speedMod * damp;
-
         curSpeed *= 1 - (_groundedDamp * damp) * hasSpeedLimit;
-
         _rb.velocity = new Vector2(curSpeed, Mathf.Min(_rb.velocity.y, _playerVar.TerminalVelY));
     }
     public void Jump(bool shortenedJump = false)

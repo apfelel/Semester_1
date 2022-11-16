@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _grappleAction;
     private InputAction _dashAction;
     private InputAction _verticalAction;
+    private InputAction _pauseAction;
 
     [HideInInspector]
     public Rigidbody2D Rb;
@@ -56,6 +57,10 @@ public class PlayerController : MonoBehaviour
 
         _verticalAction = _playerInputActions.Player.Vertical;
         _verticalAction.Enable();
+
+        _pauseAction = _playerInputActions.Player.Pause;
+        _pauseAction.performed += Pause;
+        _pauseAction.Enable();
     }
 
     
@@ -67,6 +72,7 @@ public class PlayerController : MonoBehaviour
         _grappleAction.Disable();
         _dashAction.Disable();
         _verticalAction.Disable();
+        _pauseAction.Disable();
     }
 
     void Awake()
@@ -154,9 +160,9 @@ public class PlayerController : MonoBehaviour
     {
         _grapple.EndGrapple();
     }
-    
-    public void Die()
-    {
 
+    private void Pause(InputAction.CallbackContext obj)
+    {
+        UIManager.Instance.SwitchPause();
     }
 }

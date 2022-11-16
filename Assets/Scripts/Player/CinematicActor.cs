@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,30 +7,42 @@ public class CinematicActor : MonoBehaviour
 {
     private PlayerController _playerController;
     private PlayerMovement _playerMovement;
-    private bool _inControl;
+    private Rigidbody2D _rb;
     private float _dir;
-    private float _duration;
+
+    private Action _controlingActions;
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
         _playerController = GetComponent<PlayerController>();
+        _rb = GetComponent<Rigidbody2D>();
     }
-    private void Update()
+    private void LateUpdate()
     {
-        if (!_inControl) return;
-        _duration -= Time.deltaTime;
-        _playerMovement.Move(_dir, true, false);
-        if (_duration < 0)
-        {
+        if (_controlingActions == null)
             _playerController.enabled = true;
-            _inControl = false;
-        }
+        else
+            _controlingActions.Invoke();
+
     }
     public void MoveXSec(float dir, float duration)
     {
-        _inControl = true;
         _dir = dir;
-        _duration = duration;
         _playerController.enabled = false;
+        StartCoroutine(AddAction(() => _playerMovement.Move(_dir, true, false), duration));
+    }
+    public void Freeze(float duration)
+    {
+        _playerController.enabled = false;
+        _rb.bodyType = RigidbodyType2D.Static;
+        StartCoroutine(AddAction(() => _rb.velocity = Vector2.zero, duration, ()=> _rb.bodyType = RigidbodyType2D.Dynamic));
+    }
+
+    private IEnumerator AddAction(Action ac, float duration, Action endAction = null)
+    {
+        _controlingActions += ac;
+        yield return new WaitForSeconds(duration);
+        _controlingActions -= ac;
+        endAction?.Invoke();
     }
 }
