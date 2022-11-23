@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class Grapple : MonoBehaviour
 {
     [HideInInspector]
-    public GameObject CurAnchor;
     private Rigidbody2D _rb;
     private LineRenderer _ropeLine;
     private SpringJoint2D _joint;
@@ -19,6 +18,28 @@ public class Grapple : MonoBehaviour
     private float _drawingInVelLimit;
 
     private PlayerVar _playerVar;
+
+    public List<Vector3> RopeSegments = new List<Vector3>();
+
+    public enum Dir
+    {
+        Left, Right
+    }
+    public Vector3 CurAnchor 
+    { 
+        get
+        {
+            return RopeSegments[RopeSegments.Count - 1];
+        } 
+    }
+
+    public Vector3 LastAnchor
+    {
+        get
+        {
+            return RopeSegments[RopeSegments.Count - 2];
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -33,41 +54,66 @@ public class Grapple : MonoBehaviour
     {
         if(_joint != null)
         {
-            DrawRope();
+            if (_playerVar.IsGrounded)
+            {
+                EndGrapple();
+                return;
+            }
+
+            var curAnchHit = CheckLOS(CurAnchor);
+            if(curAnchHit)
+            {
+                RopeSegments.Add(curAnchHit.point);
+                _ropeLine.positionCount++;
+                _joint.connectedAnchor = curAnchHit.point;
+                _shortestDist = (transform.position - CurAnchor).magnitude - 1;
+            }
+
+            if (RopeSegments.Count > 1)
+            {
+                var lastAnchHit = CheckLOS(LastAnchor);
+                if (!lastAnchHit)
+                {
+                    RopeSegments.RemoveAt(RopeSegments.Count - 1);
+                    _ropeLine.positionCount--;
+                    _joint.connectedAnchor = CurAnchor;
+
+                    _shortestDist = (transform.position - CurAnchor).magnitude - 2;
+                    _joint.distance = _shortestDist;
+                }
+            }
+
             if (!_drawingIn)
             {
-                float distanceFromPoint = Vector2.Distance(transform.transform.position, CurAnchor.transform.position);
+                float distanceFromPoint = Vector2.Distance(transform.transform.position, CurAnchor);
                 _joint.distance = Mathf.Min(_shortestDist, distanceFromPoint);
                 _shortestDist = _joint.distance;
             }
             else
             {
-                _joint.distance -= Time.deltaTime * _drawingInSpeed;
+                if(_joint.distance > _ropeLine.transform.localPosition.y)
+                    _joint.distance -= Time.deltaTime * _drawingInSpeed;
                 if(_rb.velocity.magnitude > _playerVar.TerminalVelY)
                 {
                     _rb.velocity = _playerVar.TerminalVelY / _rb.velocity.magnitude * _rb.velocity;
                 }
             }
-        }
-
-        if(_playerVar.IsHooked)
-        {
-            if(!CheckLOS())
-            {
-                EndGrapple();
-            }
+            DrawRope();
         }
     }
     public void StartGrapple()
     {
-        CurAnchor = GetAvailableHook();
-        if (CurAnchor == null) return;
-        if (!CheckLOS()) return;
+        var anchor = GetAvailableHook();
+        if (anchor == null) return;
+        RopeSegments.Add(anchor.transform.position);
+        if (RopeSegments.Count == 0) return;
+        if (CheckLOS(CurAnchor)) return;
+
         _joint = gameObject.AddComponent<SpringJoint2D>();
         _joint.autoConfigureConnectedAnchor = false;
         _joint.autoConfigureDistance = false;
-        _joint.connectedAnchor = CurAnchor.transform.position;
-        _shortestDist = Vector2.Distance(transform.position, CurAnchor.transform.position) * 0.95f;
+        _joint.connectedAnchor = CurAnchor;
+        _shortestDist = Vector2.Distance(transform.position, CurAnchor) * 0.95f;
         _joint.distance = _shortestDist;
         _joint.enableCollision = true;
         _joint.dampingRatio = 0.8f;
@@ -79,6 +125,7 @@ public class Grapple : MonoBehaviour
     }
     public void EndGrapple()
     {
+        RopeSegments = new List<Vector3>();
         _rb.velocity = _rb.velocity * 1.10f;
         Destroy(GetComponent<SpringJoint2D>());
         _ropeLine.positionCount = 0;
@@ -87,8 +134,11 @@ public class Grapple : MonoBehaviour
 
     private void DrawRope()
     {
-        _ropeLine.SetPosition(0, _ropeLine.transform.position);
-        _ropeLine.SetPosition(1, CurAnchor.transform.position);
+        for(int i = 0; i < RopeSegments.Count; i++)
+        {
+            _ropeLine.SetPosition(i, RopeSegments[i]);
+        }
+        _ropeLine.SetPosition(RopeSegments.Count, _ropeLine.transform.position);
     }
 
     public void StartDrawingIn()
@@ -105,26 +155,22 @@ public class Grapple : MonoBehaviour
         GameObject nearestGb = null;
         foreach (var anchor in _playerVar.AnchorsInScene)
         {
-            var temp = Vector2.Distance(anchor.transform.position, _playerVar.HookAim.transform.position);
-            if (Vector2.Distance(anchor.transform.position, _playerVar.HookAim.transform.position) < nearestDist &&
-                Vector2.Distance(anchor.transform.position, transform.position) < _playerVar.HookMaxRange)
+            var dist = Vector2.Distance(anchor.transform.position, transform.position);
+            if (dist < _playerVar.HookMaxRange)
             {
-                nearestDist = temp;
-                nearestGb = anchor;
+                if (dist < nearestDist)
+                {
+                    nearestDist = dist;
+                    nearestGb = anchor;
+                }
             }
         }
         return nearestGb;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private RaycastHit2D CheckLOS(Vector3 target)
     {
-        EndGrapple();
-        _playerVar.IsHooked = false;
-    }
-
-    private bool CheckLOS()
-    {
-        var ptoa = CurAnchor.transform.position - transform.position;
-        return !Physics2D.Raycast(transform.position, ptoa, ptoa.magnitude, _playerVar.GroundLayer);
+        var ptoa = target - transform.position;
+        return Physics2D.Raycast(transform.position, ptoa, ptoa.magnitude * 0.999f, _playerVar.GroundLayer);
     }
 }

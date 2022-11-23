@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _playerVar = GetComponent<PlayerVar>();
     }
-    public void Move(float dir, bool isGrounded, bool isHooked)
+    public void Move(float dir, bool isGrounded, bool isHooked, float speedMod)
     {
         var signedDir = 0;
         if (dir != 0)
@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
         curSpeed += signedDir * _speedMod * damp;
         curSpeed *= 1 - (_groundedDamp * damp) * hasSpeedLimit;
+        curSpeed *= speedMod;
         _rb.velocity = new Vector2(curSpeed, Mathf.Min(_rb.velocity.y, _playerVar.TerminalVelY));
     }
     public void Jump(bool shortenedJump = false)

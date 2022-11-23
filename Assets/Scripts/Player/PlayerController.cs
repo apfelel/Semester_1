@@ -37,7 +37,11 @@ public class PlayerController : MonoBehaviour
     private PlayerVar _playerVar;
     private void OnEnable()
     {
-        
+        EnableInput();
+    }
+
+    private void EnableInput()
+    {
         _moveAction = _playerInputActions.Player.Move;
         _moveAction.Enable();
 
@@ -63,9 +67,11 @@ public class PlayerController : MonoBehaviour
         _pauseAction.Enable();
     }
 
-    
-
     private void OnDisable()
+    {
+        DisableInput();
+    }
+    private void DisableInput()
     {
         _moveAction.Disable();
         _jumpAction.Disable();
@@ -85,13 +91,10 @@ public class PlayerController : MonoBehaviour
         _wallClimb = GetComponent<PlayerWallClimb>();
         _playerVar = GetComponent<PlayerVar>();
     }
-    private void Update()
-    {
-    }
     void FixedUpdate()
     {
         _moveInput = _moveAction.ReadValue<float>();
-        _playerMovement.Move(_moveInput, _playerVar.IsGrounded, _playerVar.IsHooked);
+        _playerMovement.Move(_moveInput, _playerVar.IsGrounded, _playerVar.IsHooked, _playerVar.IsWeakened? 0.5f: 1);
         
 
         if (!_playerVar.IsHooked && _playerVar.IsWallInFront && !_playerVar.IsGroundedBuffered && _moveInput != 0)
@@ -163,6 +166,27 @@ public class PlayerController : MonoBehaviour
 
     private void Pause(InputAction.CallbackContext obj)
     {
+       
         UIManager.Instance.SwitchPause();
+        if (UIManager.Instance.IsPaused)
+            EnableInput();
+        else
+            DisableInput();
+    }
+
+    public void WeakenedState(bool isActive)
+    {
+        DisableInput();
+        if (isActive)
+        {
+            _moveAction = _playerInputActions.Player.Move;
+            _moveAction.Enable();
+        }
+        else
+        {
+            EnableInput();
+        }
+        _playerVar.IsWeakened = isActive;
+        Debug.Log("weak");
     }
 }

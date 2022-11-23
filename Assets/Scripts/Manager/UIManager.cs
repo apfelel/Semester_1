@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
 {
@@ -8,10 +10,17 @@ public class UIManager : MonoSingleton<UIManager>
     private GameObject _pauseMenue;
     [SerializeField]
     private GameObject _settingMenue;
+    [SerializeField]
+    private RawImage _pixelatedImage;
+    [SerializeField]
+    private TextMeshProUGUI _gemCountTxt;
+
+    public bool IsPaused;
     private void Start()
     {
         _pauseMenue.SetActive(false);
         _settingMenue.SetActive(false);
+        DontDestroyOnLoad(this);
     }
     public void Pause()
     {
@@ -30,9 +39,15 @@ public class UIManager : MonoSingleton<UIManager>
     public void SwitchPause()
     {
         if (_pauseMenue.activeInHierarchy)
+        {
+            IsPaused = false;
             UnPause();
+        }
         else
+        {
+            IsPaused = true;
             Pause();
+        }
     }
 
     public void OpenSettings()
@@ -47,5 +62,15 @@ public class UIManager : MonoSingleton<UIManager>
         if(GameManager.Instance.IsActive)
             _pauseMenue.SetActive(true);
         _settingMenue.SetActive(false);
+    }
+    public void AllignPixelImage(Vector2 camPos, float curScreenSize, float _renderTextureHeight)
+    {
+        float sizeConst = _renderTextureHeight / (curScreenSize * 2 * 16);
+        _pixelatedImage.rectTransform.anchoredPosition = new Vector2((camPos.x % sizeConst), (camPos.y % sizeConst));
+    }
+
+    public void UpdateGemCount(int num)
+    {
+        _gemCountTxt.text = num.ToString();
     }
 }

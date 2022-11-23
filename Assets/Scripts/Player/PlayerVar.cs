@@ -7,9 +7,11 @@ public class PlayerVar : MonoBehaviour
 {
     private CapsuleCollider2D _col;
     private Rigidbody2D _rb;
+
+    public bool IsWeakened;
+
     [Header("Hook Things")]
     public float HookMaxRange;
-    public GameObject HookAim;
     [HideInInspector]
     public bool IsHooked;
     [HideInInspector]
@@ -103,7 +105,14 @@ public class PlayerVar : MonoBehaviour
     [Header("Speed Things")]
     public float TerminalVelY;
 
-
+    [Header("Dash Things")]
+    public bool IsDashing;
+    public bool HasDash;
+    [Header("Hair Things")]
+    [SerializeField]
+    private ParticleSystem _hairVolume;
+    [SerializeField]
+    private ParticleSystem _hairLight;
     // Start is called before the first frame update
     void Start()
     {
@@ -116,10 +125,6 @@ public class PlayerVar : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
     // Update is called once per frame
-    void Update()
-    {
-        HookAim.transform.position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-    }
     private void FixedUpdate()
     {
         GroundDeny -= Time.deltaTime;
@@ -139,11 +144,18 @@ public class PlayerVar : MonoBehaviour
             IsWallInFront = true;
             LastWallHitPos = hitLow.point;
         }
-        if (Jumped && _rb.velocity.y < 0)
+        if (Jumped && _rb.velocity.y < 0 || IsDashing)
             Jumped = false;
+            
 
     }
-
+    public void ResizeHair(int amount)
+    {
+        var hairLight = _hairLight.main;
+        var hairVolume = _hairVolume.main;
+        hairLight.startLifetime = (float)amount / 100 + 0.1f;
+        hairVolume.startLifetime = (float)amount / 100 + 0.1f;
+    }
     private void OnDrawGizmosSelected()
     {
         _col = GetComponent<CapsuleCollider2D>();

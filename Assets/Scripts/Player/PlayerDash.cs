@@ -13,12 +13,7 @@ public class PlayerDash : MonoBehaviour
 
     [SerializeField]
     private float _duration, _strength;
-    private bool _hasDash;
 
-    [HideInInspector]
-    public bool Dashing;
-
-    private PlayerController _playerController;
     private PlayerVar _playerVar;
     private Rigidbody2D _rb;
 
@@ -26,17 +21,16 @@ public class PlayerDash : MonoBehaviour
     void Start()
     {
         _playerVar = GetComponent<PlayerVar>();
-        _playerController = GetComponent<PlayerController>();
         _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!_hasDash &!Dashing)
+        if(!_playerVar.HasDash & !_playerVar.IsDashing)
             if(_playerVar.IsGrounded)
-                _hasDash = true;
-        if(Dashing)
+                _playerVar.HasDash = true;
+        if(_playerVar.IsDashing)
         {
             _rb.velocity = _dashForce;
         }
@@ -45,23 +39,15 @@ public class PlayerDash : MonoBehaviour
     public void Dash(Vector2 dir)
     {
 
-        if (_hasDash && !Dashing & !_playerVar.IsHooked)
+        if (_playerVar.HasDash && !_playerVar.IsDashing & !_playerVar.IsHooked)
         {
-            var dot = Vector2.Dot(dir, _rb.velocity.normalized) + _strength - 1;
+            if (dir.y < -0.1f)
+                dir = new Vector2(dir.x, dir.y * 1.5f);
+            else if (dir.y > 0.1f)
+                dir = new Vector2(dir.x * 0.8f, dir.y * 0.8f);
 
-            //if (Mathf.Abs((dot * _rb.velocity).magnitude) < _minSpeed)
-            {
-                _dashForce = dir * _minSpeed;
-                _endSpeed = _dashForce;
-            }
-            // else
-            {
-            //     _dashForce = Mathf.Abs(_rb.velocity.magnitude) * dot * dir;
-            //     _endSpeed = _dashForce / ((_strength - 1) / 2 + 1) ;
-            }
-            Debug.Log(dot);
-            Debug.Log(_dashForce);
-
+            _dashForce = dir * _minSpeed;
+            _endSpeed = _dashForce;
             _ps.Play();
             StartCoroutine(DashDelay());
         }
@@ -70,16 +56,16 @@ public class PlayerDash : MonoBehaviour
     private IEnumerator DashDelay()
     {
         _rb.gravityScale = 0;
-        _hasDash = false;
-        Dashing = true;
+        _playerVar.HasDash = false;
+        _playerVar.IsDashing = true;
         yield return new WaitForSeconds(_duration);
-        Dashing = false;
+        _playerVar.IsDashing = false;
         _rb.gravityScale = 2;
         _rb.velocity = _endSpeed;
     }
 
     public void RegainDash()
     {
-        _hasDash = true;
+        _playerVar.HasDash = true;
     }
 }

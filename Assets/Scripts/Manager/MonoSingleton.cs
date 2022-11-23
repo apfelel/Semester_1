@@ -19,14 +19,9 @@ public class MonoSingleton<T>: MonoBehaviour where T: MonoSingleton<T>
     {
         if (FindObjectsOfType<T>().Length > 1) Destroy(gameObject);
         else
-         _instance = (T)this;
-
-        DontDestroyOnLoad(this);
+        {
+            _instance = (T)this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

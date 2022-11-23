@@ -12,6 +12,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     private void Start()
     {
         _source = GetComponent<AudioSource>();   
+        DontDestroyOnLoad(this);
     }
     public void CrystalPickup()
     {

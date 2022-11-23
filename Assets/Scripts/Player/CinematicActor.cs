@@ -29,7 +29,7 @@ public class CinematicActor : MonoBehaviour
     {
         _dir = dir;
         _playerController.enabled = false;
-        StartCoroutine(AddAction(() => _playerMovement.Move(_dir, true, false), duration));
+        StartCoroutine(AddAction(() => _playerMovement.Move(_dir, true, false, 1), duration));
     }
     public void Freeze(float duration)
     {

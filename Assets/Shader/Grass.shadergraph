@@ -20,6 +20,9 @@
         },
         {
             "m_Id": "707474974503401b9fa09b14c46a623d"
+        },
+        {
+            "m_Id": "07d7eed61bc94d83931e5b9e5c98e7ec"
         }
     ],
     "m_Keywords": [],
@@ -916,6 +919,33 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
+    }
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "07d7eed61bc94d83931e5b9e5c98e7ec",
+    "m_Guid": {
+        "m_GuidSerialized": "546544cc-6dfb-4f1d-9861-dffdc511d24d"
+    },
+    "m_Name": "PixelateAmount",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "PixelateAmount",
+    "m_DefaultReferenceName": "_PixelateAmount",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 53.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
     }
 }
 
@@ -2743,6 +2773,9 @@
         },
         {
             "m_Id": "75aa1fccd810404e82ec359864da2827"
+        },
+        {
+            "m_Id": "07d7eed61bc94d83931e5b9e5c98e7ec"
         }
     ]
 }

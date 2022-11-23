@@ -45,6 +45,7 @@ Material:
     - _BUILTIN_QueueControl: -1
     - _BUILTIN_QueueOffset: 0
     - _DownMult: 0.47
+    - _PixelateAmount: 108.84
     - _VelocityMult: 0.83
     - _WindIntensity: 0.98
     - _WindSpeed: 0.5

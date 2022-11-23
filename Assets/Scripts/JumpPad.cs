@@ -16,12 +16,10 @@ public class JumpPad : MonoBehaviour
         {
             var pc = collision.GetComponent<PlayerController>();
             var pv = collision.GetComponent<PlayerVar>();
-            if (!pv.Jumped)
-            {
-                pc.Rb.velocity = new Vector2(pc.Rb.velocity.x, 0);
-                pc.Rb.AddForce((_direction == Vector2.zero ? (Vector2)transform.up : _direction) * _force);
-                pc.SkipGroundedBuffer();
-            }
+            pc.Rb.velocity = new Vector2(pc.Rb.velocity.x, 0);
+            pc.Rb.AddForce((_direction == Vector2.zero ? (Vector2)transform.up : _direction) * _force);
+            pc.SkipGroundedBuffer();
+            pv.HasDash = true;
         }
     }
 
