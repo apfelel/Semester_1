@@ -5,7 +5,8 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     private SpriteRenderer _sr;
-
+    [SerializeField]
+    private int _count;
     [SerializeField]
     private GameObject _particle;
     [SerializeField]
@@ -22,7 +23,7 @@ public class Collectible : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < _count; i++)
             {
                 var gb = Instantiate(_particle);
                 gb.transform.up = _particleDirection;

@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour
 {
     private SpriteRenderer _sr;
+    [SerializeField]
+    private Sprite _onSprite, _offSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +24,10 @@ public class SpawnPoint : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             GameManager.Instance.NewSpawnPoint(this);
-            Debug.Log("test");
         }
     }
     public void ChangeState(bool active)
     {
-        _sr.color = active ? Color.red : Color.white;
+        _sr.sprite = active ? _offSprite : _offSprite;
     }
 }

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5284110453805881270}
   - component: {fileID: 5284110453805881271}
   - component: {fileID: 5284110453805881264}
-  - component: {fileID: 5284110453805881265}
   - component: {fileID: 4915518109509786479}
+  - component: {fileID: -6373021807692686089}
   m_Layer: 0
-  m_Name: Particle
+  m_Name: DashParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.3160377, g: 0.4440049, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.89299846, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 1
   m_FalloffIntensity: 1
-  m_Color: {r: 0.2688679, g: 0.4541548, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9800461, b: 0, a: 1}
   m_Intensity: 0.68
   m_LightVolumeIntensity: 2.8
   m_LightVolumeIntensityEnabled: 1
@@ -166,21 +166,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &5284110453805881265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5284110453805881266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f60ff4753c249aa439d0e9e67bfd90f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spreadTime: 0.1
-  _waitTime: 0.7
-  _speed: 0.7
 --- !u!50 &4915518109509786479
 Rigidbody2D:
   serializedVersion: 4
@@ -202,3 +187,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-6373021807692686089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284110453805881266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981a83d0d7498f2459054a6450cc106c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

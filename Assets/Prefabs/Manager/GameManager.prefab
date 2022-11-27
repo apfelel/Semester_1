@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   Player: {fileID: 0}
+  PlayerVar: {fileID: 0}
   _playerPrefab: {fileID: 5184457653431198588, guid: 7b7ba01ae96ead0478a05a24976505cb, type: 3}
   SceneMainCam: {fileID: 0}
   _pixelatedTexture: {fileID: 8400000, guid: eef9e8a119da51e42ad8c6685d4032a8, type: 2}

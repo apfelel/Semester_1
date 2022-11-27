@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948ea7515ce6a7f45a0bbeb2da69d839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _count: 10
   _particle: {fileID: 5284110453805881266, guid: ec6b59717a028b64e8035f11f7c21513, type: 3}
   _destroyedSprite: {fileID: 854414751, guid: 03b75ca7dc9468d4e81614335b8ea843, type: 3}
   _particleDirection: {x: 0, y: 1}

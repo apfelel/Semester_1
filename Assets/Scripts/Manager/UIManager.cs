@@ -65,8 +65,9 @@ public class UIManager : MonoSingleton<UIManager>
     }
     public void AllignPixelImage(Vector2 camPos, float curScreenSize, float _renderTextureHeight)
     {
-        float sizeConst = _renderTextureHeight / (curScreenSize * 2 * 16);
-        _pixelatedImage.rectTransform.anchoredPosition = new Vector2((camPos.x % sizeConst), (camPos.y % sizeConst));
+        float sizeConst = _renderTextureHeight / (curScreenSize * 16);
+        Debug.Log(sizeConst);
+        //_pixelatedImage.rectTransform.anchoredPosition = new Vector2(camPos.x % sizeConst, camPos.y % sizeConst);
     }
 
     public void UpdateGemCount(int num)

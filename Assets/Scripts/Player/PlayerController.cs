@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         EnableInput();
+        _pauseAction = _playerInputActions.Player.Pause;
+        _pauseAction.performed += Pause;
+        _pauseAction.Enable();
     }
 
     private void EnableInput()
@@ -62,14 +65,13 @@ public class PlayerController : MonoBehaviour
         _verticalAction = _playerInputActions.Player.Vertical;
         _verticalAction.Enable();
 
-        _pauseAction = _playerInputActions.Player.Pause;
-        _pauseAction.performed += Pause;
-        _pauseAction.Enable();
+   
     }
 
     private void OnDisable()
     {
         DisableInput();
+        _pauseAction.Disable();
     }
     private void DisableInput()
     {
@@ -78,7 +80,6 @@ public class PlayerController : MonoBehaviour
         _grappleAction.Disable();
         _dashAction.Disable();
         _verticalAction.Disable();
-        _pauseAction.Disable();
     }
 
     void Awake()
@@ -137,8 +138,10 @@ public class PlayerController : MonoBehaviour
     }
     public void Dash(InputAction.CallbackContext obj)
     {
-        if(!_playerVar.IsHooked)
+        if (!_playerVar.IsHooked)
+        {
             _playerDash.Dash(new Vector2(_moveInput, _verticalAction.ReadValue<float>()).normalized);
+        }
     }
     private void Jump(InputAction.CallbackContext obj)
     {
@@ -163,7 +166,6 @@ public class PlayerController : MonoBehaviour
     {
         _grapple.EndGrapple();
     }
-
     private void Pause(InputAction.CallbackContext obj)
     {
        

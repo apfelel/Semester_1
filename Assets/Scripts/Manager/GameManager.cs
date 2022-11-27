@@ -1,3 +1,5 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,22 +21,24 @@ public class GameManager : MonoSingleton<GameManager>
         {
             _collectibles = value;
             UIManager.Instance.UpdateGemCount(value);
-            _playerVar.ResizeHair(value);
+            PlayerVar.ResizeHair(value);
         } 
     }
     private int _collectibles;
 
     [HideInInspector]
     public GameObject Player;
-    private PlayerVar _playerVar;
+    [HideInInspector]
+    public PlayerVar PlayerVar;
     [SerializeField]
     private GameObject _playerPrefab;
     private PlayerAnimationController _playerAnimController;
-    private CinematicActor _playerCinematic;
+    public CinematicActor PlayerCinematic;
     private PlayerController _playerController;
     private Rigidbody2D _playerRb;
 
     public GameObject SceneMainCam;
+    public CinemachineVirtualCamera SceneVCam;
     [SerializeField]
     private RenderTexture _pixelatedTexture;
     private float _curScreenSize;
@@ -49,7 +53,23 @@ public class GameManager : MonoSingleton<GameManager>
     [HideInInspector]
     public bool Weakend;
 
+    public Action<float> OnScreensizeChange;
 
+    public void ChangeScreensize(float size)
+    {
+        OnScreensizeChange?.Invoke(size);
+        RecalculatePixelTexture(size);
+        Debug.Log("test");
+    }
+    private void RecalculatePixelTexture(float camSize)
+    {
+        Debug.Log(camSize +"--------");
+        var cam = SceneMainCam.GetComponent<UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera>();
+        _curScreenSize = cam.CorrectCinemachineOrthoSize(camSize);
+        _pixelatedTexture.Release();
+        _pixelatedTexture.width = (int)(Screen.width / 32 * _curScreenSize);
+        _pixelatedTexture.height = (int)(Screen.height / 32 * _curScreenSize);
+    }
     private void OnEnable()
     {
         if (IsActive)
@@ -60,11 +80,9 @@ public class GameManager : MonoSingleton<GameManager>
     {
         SceneMainCam = Camera.main.gameObject;
     }
-    private void Update()
+    private void LateUpdate()
     {
         if (Player == null) return;
-
-        UIManager.Instance.AllignPixelImage(SceneMainCam.transform.position, _curScreenSize, _pixelatedTexture.height);
     }
     public enum Direction
     {
@@ -89,14 +107,14 @@ public class GameManager : MonoSingleton<GameManager>
     }
     private IEnumerator DeathDelay()
     {
-        _playerCinematic.Freeze(1);
+        PlayerCinematic.Freeze(1);
         yield return new WaitForSeconds(1);
         if (_spawnPoint == null)
             Player.transform.position = _entry.transform.position;
         else
             Player.transform.position = _spawnPoint.transform.position;
 
-        _playerCinematic.MoveXSec(0, 2);
+        PlayerCinematic.MoveXSec(0, 2);
         yield return new WaitForSeconds(1);
         _playerAnimController.RespawnAnim();
         yield return new WaitForSeconds(1);
@@ -115,11 +133,11 @@ public class GameManager : MonoSingleton<GameManager>
     private IEnumerator NextLvlDelay( string lvl)
     {
         if (_exit == Direction.Left)
-            _playerCinematic.MoveXSec(-1, _nextLvlDelay);
+            PlayerCinematic.MoveXSec(-1, _nextLvlDelay);
         else if (_exit == Direction.Right)
-            _playerCinematic.MoveXSec(1, _nextLvlDelay);
+            PlayerCinematic.MoveXSec(1, _nextLvlDelay);
         else
-            _playerCinematic.MoveXSec(0, _nextLvlDelay);
+            PlayerCinematic.MoveXSec(0, _nextLvlDelay);
 
         yield return new WaitForSeconds(_nextLvlDelay);
         SceneManager.LoadScene(lvl);
@@ -127,16 +145,14 @@ public class GameManager : MonoSingleton<GameManager>
     }
     private void OnSceneChanged(Scene arg0, LoadSceneMode arg1)
     {
-        SceneMainCam = Camera.main.gameObject;
-        var cam = SceneMainCam.GetComponent<UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera>();
-        _curScreenSize = cam.CorrectCinemachineOrthoSize(LVLManager.Instance.CamSize);
-        _pixelatedTexture.Release();
-        _pixelatedTexture.width = (int)((Screen.width / 16) * _curScreenSize);
-        _pixelatedTexture.height = (int)((Screen.height / 16) * _curScreenSize);
-
+        _spawnPoint = null;
         var player = ReloadPlayer();
-        if (LVLManager.Instance.StartWeak)
-            SetWeakenedState(true);
+        if (LVLManager.Instance != null)
+        {
+            if (LVLManager.Instance.StartWeak)
+                SetWeakenedState(true);
+            ChangeScreensize(LVLManager.Instance.CamSize);
+        }
 
         if (_exit == null) return;
 
@@ -145,9 +161,9 @@ public class GameManager : MonoSingleton<GameManager>
 
         player.transform.position = _entry.transform.position;
         if (_exit == Direction.Left)
-            _playerCinematic.MoveXSec(-1, _nextLvlDelay);
+            PlayerCinematic.MoveXSec(-1, _nextLvlDelay);
         else if (_exit == Direction.Right)
-            _playerCinematic.MoveXSec(1, _nextLvlDelay);
+            PlayerCinematic.MoveXSec(1, _nextLvlDelay);
 
         if(_exit == Direction.Up)
         {
@@ -161,12 +177,14 @@ public class GameManager : MonoSingleton<GameManager>
         {
             Player = Instantiate(_playerPrefab).transform.GetChild(0).gameObject;
         }
-        _playerVar = Player.GetComponent<PlayerVar>();
-        _playerVar.ResizeHair(Collectibles);
+        PlayerVar = Player.GetComponent<PlayerVar>();
+        PlayerVar.ResizeHair(Collectibles);
         _playerAnimController = Player.GetComponent<PlayerAnimationController>();
-        _playerCinematic = Player.GetComponent<CinematicActor>();
+        PlayerCinematic = Player.GetComponent<CinematicActor>();
         _playerRb = Player.GetComponent<Rigidbody2D>();
         _playerController = Player.GetComponent<PlayerController>();
+        SceneMainCam = Camera.main.gameObject;
+        SceneVCam = Player.transform.parent.GetComponentInChildren<CinemachineVirtualCamera>();
         return Player;
     }
     public bool CheckIfLeaving(Direction dir)
@@ -190,7 +208,6 @@ public class GameManager : MonoSingleton<GameManager>
         _spawnPoint?.ChangeState(false);
         _spawnPoint = spawnPoint;
         _spawnPoint.ChangeState(true);
-        Debug.Log("New Checkpoint");
     }
 
     public void SetWeakenedState(bool IsActive)

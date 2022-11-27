@@ -12,8 +12,9 @@ public class PlayerDash : MonoBehaviour
     private ParticleSystem _ps;
 
     [SerializeField]
-    private float _duration, _strength;
+    private float _duration, _strength, _cooldown;
 
+    float _cooldownTimer;
     private PlayerVar _playerVar;
     private Rigidbody2D _rb;
 
@@ -34,13 +35,16 @@ public class PlayerDash : MonoBehaviour
         {
             _rb.velocity = _dashForce;
         }
+
+        _cooldownTimer += Time.deltaTime;
     }
 
     public void Dash(Vector2 dir)
     {
-
-        if (_playerVar.HasDash && !_playerVar.IsDashing & !_playerVar.IsHooked)
+        if (_playerVar.HasDash && !_playerVar.IsDashing & !_playerVar.IsHooked && _cooldown < _cooldownTimer && dir != Vector2.zero)
         {
+            //ScreenShake.Instance.ShakeScreen(3, 0.3f);
+            _cooldownTimer = 0;
             if (dir.y < -0.1f)
                 dir = new Vector2(dir.x, dir.y * 1.5f);
             else if (dir.y > 0.1f)

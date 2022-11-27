@@ -153,8 +153,16 @@ public class PlayerVar : MonoBehaviour
     {
         var hairLight = _hairLight.main;
         var hairVolume = _hairVolume.main;
-        hairLight.startLifetime = (float)amount / 100 + 0.1f;
-        hairVolume.startLifetime = (float)amount / 100 + 0.1f;
+        if (amount == 0)
+        {
+            hairLight.startLifetime = 0;
+            hairVolume.startLifetime = 0;
+        }
+        else
+        {
+            hairLight.startLifetime = (float)amount / 100 + 0.1f;
+            hairVolume.startLifetime = (float)amount / 100 + 0.1f;
+        }
     }
     private void OnDrawGizmosSelected()
     {

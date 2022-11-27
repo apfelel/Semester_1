@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3761205542689762940}
   - component: {fileID: 3761205542689762939}
   - component: {fileID: 3761205542689762938}
+  - component: {fileID: 8700803825261814395}
   m_Layer: 0
   m_Name: RespawnPoint
   m_TagString: Untagged
@@ -99,7 +100,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5024204}
+  m_Offset: {x: 0, y: 0.57}
   serializedVersion: 2
   m_Radius: 2.09861
 --- !u!114 &3761205542689762938
@@ -112,5 +113,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0987792564a7874e965dd512bc080a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onSprite: {fileID: 944351655, guid: e51cc25020c580343b494b4f68646436, type: 3}
+  _offSprite: {fileID: 1029221584, guid: e51cc25020c580343b494b4f68646436, type: 3}
+--- !u!114 &8700803825261814395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3761205542689762937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b51ee9b02619b44cb013d15a008ae01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

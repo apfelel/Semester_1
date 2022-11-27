@@ -12,19 +12,30 @@ public class SyncCamSize : MonoBehaviour
     [SerializeField]
     float _sizeAdd;
     // Start is called before the first frame update
-    void Start()
+    private void RecalculateCamSize(float camSize)
     {
-        _cam = GetComponent<Camera>();
         if (_cam != null)
         {
             var test = Camera.main.GetComponent<PixelPerfectCamera>();
-            _cam.orthographicSize = test.CorrectCinemachineOrthoSize(LVLManager.Instance.CamSize) + _sizeAdd;
+            _cam.orthographicSize = test.CorrectCinemachineOrthoSize(camSize);
         }
         else
         {
             _vCam = GetComponent<CinemachineVirtualCamera>();
             var test = Camera.main.GetComponent<PixelPerfectCamera>();
-            _vCam.m_Lens.OrthographicSize = test.CorrectCinemachineOrthoSize(LVLManager.Instance.CamSize) + _sizeAdd;
+            _vCam.m_Lens.OrthographicSize = test.CorrectCinemachineOrthoSize(camSize);
         }
+
+        Debug.Log("test");
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnScreensizeChange -= RecalculateCamSize;
+    }
+    private void OnEnable()
+    {
+        GameManager.Instance.OnScreensizeChange += RecalculateCamSize;
+        _cam = GetComponent<Camera>();
     }
 }
