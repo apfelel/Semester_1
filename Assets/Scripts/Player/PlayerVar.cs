@@ -9,7 +9,7 @@ public class PlayerVar : MonoBehaviour
     private Rigidbody2D _rb;
 
     public bool IsWeakened;
-
+    public bool HasGloves, HasGrapple;
     [Header("Hook Things")]
     public float HookMaxRange;
     [HideInInspector]
@@ -113,6 +113,8 @@ public class PlayerVar : MonoBehaviour
     private ParticleSystem _hairVolume;
     [SerializeField]
     private ParticleSystem _hairLight;
+
+
     // Start is called before the first frame update
     void Start()
     {

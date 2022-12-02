@@ -25,8 +25,6 @@ public class SyncCamSize : MonoBehaviour
             var test = Camera.main.GetComponent<PixelPerfectCamera>();
             _vCam.m_Lens.OrthographicSize = test.CorrectCinemachineOrthoSize(camSize);
         }
-
-        Debug.Log("test");
     }
 
     private void OnDisable()
@@ -35,7 +33,7 @@ public class SyncCamSize : MonoBehaviour
     }
     private void OnEnable()
     {
-        GameManager.Instance.OnScreensizeChange += RecalculateCamSize;
         _cam = GetComponent<Camera>();
+        GameManager.Instance.OnScreensizeChange += RecalculateCamSize;
     }
 }

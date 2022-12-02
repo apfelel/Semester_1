@@ -44,11 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1ca498e14233b94bb06bb2e7bfb58f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   Player: {fileID: 0}
   PlayerVar: {fileID: 0}
   _playerPrefab: {fileID: 5184457653431198588, guid: 7b7ba01ae96ead0478a05a24976505cb, type: 3}
+  PlayerCinematic: {fileID: 0}
   SceneMainCam: {fileID: 0}
+  SceneVCam: {fileID: 0}
   _pixelatedTexture: {fileID: 8400000, guid: eef9e8a119da51e42ad8c6685d4032a8, type: 2}
   _nextLvlDelay: 0.6
   Weakend: 0

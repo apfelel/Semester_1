@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 60f73602cdbe2e7499383da800b1776a
-      internalID: -1651624489
+      spriteID: c9112bbe10844ad4fbad6f6dafae6435
+      internalID: 1993073732
       vertices: []
       indices: 
       edges: []
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c5fb1be6faccc74eb6777dfda2335b7
-      internalID: 56304557
+      spriteID: 0e8fcd17b945609489e037f7a12d8426
+      internalID: -1990858015
       vertices: []
       indices: 
       edges: []
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f7dcd8362d5c0247901b69aa53f2078
-      internalID: 1522885423
+      spriteID: e78e9d1ce43ba4a48b133d1ab8d9543c
+      internalID: 890181243
       vertices: []
       indices: 
       edges: []
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbfe07c8ae1a7f34aae06a87e4bdae1f
-      internalID: -2033446995
+      spriteID: b73bec1d3c1e30a4390cde23ec242f97
+      internalID: 762736413
       vertices: []
       indices: 
       edges: []
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64a390743fb2eb34b851f3995d87adf1
-      internalID: 1556251391
+      spriteID: 25d1278809174c44aba2cfffb4a92f65
+      internalID: 1350988643
       vertices: []
       indices: 
       edges: []
@@ -220,11 +220,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      player_Dash_Side_3: -2033446995
-      player_Dash_Side_4: 1556251391
-      player_Dash_Side_2: 1522885423
-      player_Dash_Side_0: -1651624489
-      player_Dash_Side_1: 56304557
+      player_Dash_Side_3: 762736413
+      player_Dash_Side_4: 1350988643
+      player_Dash_Side_2: 890181243
+      player_Dash_Side_0: 1993073732
+      player_Dash_Side_1: -1990858015
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

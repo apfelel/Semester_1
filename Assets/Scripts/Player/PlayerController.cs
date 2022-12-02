@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private PlayerDash _playerDash;
     private PlayerWallClimb _wallClimb;
 
+    private PlayerInput _playerInput;
     private PlayerInputActions _playerInputActions;
     private InputAction _moveAction;
     private InputAction _jumpAction;
@@ -64,8 +65,6 @@ public class PlayerController : MonoBehaviour
 
         _verticalAction = _playerInputActions.Player.Vertical;
         _verticalAction.Enable();
-
-   
     }
 
     private void OnDisable()
@@ -84,6 +83,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        
         _playerDash = GetComponent<PlayerDash>();
         Rb = GetComponent<Rigidbody2D>();
         _playerInputActions = new PlayerInputActions();
@@ -91,14 +91,23 @@ public class PlayerController : MonoBehaviour
         _grapple = GetComponent<Grapple>();
         _wallClimb = GetComponent<PlayerWallClimb>();
         _playerVar = GetComponent<PlayerVar>();
+        _playerInput = GetComponent<PlayerInput>();
+        _playerInput.onControlsChanged += ControlsChanged;
+        GameManager.Instance.CurControlScheme = _playerInput.currentControlScheme;
     }
+
+    private void ControlsChanged(PlayerInput obj)
+    {
+        GameManager.Instance.CurControlScheme = obj.currentControlScheme;
+    }
+
     void FixedUpdate()
     {
         _moveInput = _moveAction.ReadValue<float>();
         _playerMovement.Move(_moveInput, _playerVar.IsGrounded, _playerVar.IsHooked, _playerVar.IsWeakened? 0.5f: 1);
         
 
-        if (!_playerVar.IsHooked && _playerVar.IsWallInFront && !_playerVar.IsGroundedBuffered && _moveInput != 0)
+        if (_playerVar.HasGloves && !_playerVar.IsHooked && _playerVar.IsWallInFront && !_playerVar.IsGroundedBuffered && _moveInput != 0)
         {
             _playerVar.IsWallsliding = true;
             _wallClimb.StartWallSlide();
@@ -160,7 +169,8 @@ public class PlayerController : MonoBehaviour
     }
     private void StartGrapple(InputAction.CallbackContext obj)
     {
-        _grapple.StartGrapple();
+        if(_playerVar.HasGrapple)
+         _grapple.StartGrapple();
     }
     private void EndGrapple(InputAction.CallbackContext obj)
     {

@@ -46,9 +46,9 @@ public class PlayerDash : MonoBehaviour
             //ScreenShake.Instance.ShakeScreen(3, 0.3f);
             _cooldownTimer = 0;
             if (dir.y < -0.1f)
-                dir = new Vector2(dir.x, dir.y * 1.5f);
+                dir = new Vector2(dir.x * 0.8f, dir.y * 1.3f);
             else if (dir.y > 0.1f)
-                dir = new Vector2(dir.x * 0.8f, dir.y * 0.8f);
+                dir = new Vector2(dir.x * 0.8f, dir.y * 0.6f);
 
             _dashForce = dir * _minSpeed;
             _endSpeed = _dashForce;

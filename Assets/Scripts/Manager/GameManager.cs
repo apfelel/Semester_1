@@ -9,8 +9,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoSingleton<GameManager>
 {
     public bool IsActive;
-
-    [HideInInspector]
+    private bool _hasGrapple;
+    private bool _hasGloves;
     public int Collectibles 
     {
         get
@@ -30,14 +30,18 @@ public class GameManager : MonoSingleton<GameManager>
     public GameObject Player;
     [HideInInspector]
     public PlayerVar PlayerVar;
-    [SerializeField]
-    private GameObject _playerPrefab;
-    private PlayerAnimationController _playerAnimController;
+    [HideInInspector]
     public CinematicActor PlayerCinematic;
-    private PlayerController _playerController;
+    [HideInInspector]
+    public PlayerController PlayerController;
+    private PlayerAnimationController _playerAnimController;
     private Rigidbody2D _playerRb;
+    private GameObject _playerPrefab;
 
+    public string CurControlScheme;
+    [HideInInspector]
     public GameObject SceneMainCam;
+    [HideInInspector]
     public CinemachineVirtualCamera SceneVCam;
     [SerializeField]
     private RenderTexture _pixelatedTexture;
@@ -67,8 +71,8 @@ public class GameManager : MonoSingleton<GameManager>
         var cam = SceneMainCam.GetComponent<UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera>();
         _curScreenSize = cam.CorrectCinemachineOrthoSize(camSize);
         _pixelatedTexture.Release();
-        _pixelatedTexture.width = (int)(Screen.width / 32 * _curScreenSize);
-        _pixelatedTexture.height = (int)(Screen.height / 32 * _curScreenSize);
+        _pixelatedTexture.width = (int)(_curScreenSize * 32 * (16f / 9));
+        _pixelatedTexture.height = (int)(_curScreenSize * 32);
     }
     private void OnEnable()
     {
@@ -149,8 +153,6 @@ public class GameManager : MonoSingleton<GameManager>
         var player = ReloadPlayer();
         if (LVLManager.Instance != null)
         {
-            if (LVLManager.Instance.StartWeak)
-                SetWeakenedState(true);
             ChangeScreensize(LVLManager.Instance.CamSize);
         }
 
@@ -182,9 +184,11 @@ public class GameManager : MonoSingleton<GameManager>
         _playerAnimController = Player.GetComponent<PlayerAnimationController>();
         PlayerCinematic = Player.GetComponent<CinematicActor>();
         _playerRb = Player.GetComponent<Rigidbody2D>();
-        _playerController = Player.GetComponent<PlayerController>();
+        PlayerController = Player.GetComponent<PlayerController>();
         SceneMainCam = Camera.main.gameObject;
         SceneVCam = Player.transform.parent.GetComponentInChildren<CinemachineVirtualCamera>();
+        PlayerVar.HasGloves = _hasGloves;
+        PlayerVar.HasGrapple = _hasGrapple;
         return Player;
     }
     public bool CheckIfLeaving(Direction dir)
@@ -212,6 +216,17 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void SetWeakenedState(bool IsActive)
     {
-        _playerController.WeakenedState(IsActive);
+        PlayerController.WeakenedState(IsActive);
+    }
+
+    public void UnlockGrapple()
+    {
+        _hasGrapple = true;
+        PlayerVar.HasGrapple = true;
+    }
+    public void UnlockGloves()
+    {
+        _hasGloves = true;
+        PlayerVar.HasGloves = true;
     }
 }

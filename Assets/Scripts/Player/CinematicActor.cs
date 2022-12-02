@@ -34,7 +34,7 @@ public class CinematicActor : MonoBehaviour
     public void Freeze(float duration)
     {
         _playerController.enabled = false;
-        _rb.bodyType = RigidbodyType2D.Static;
+        _rb.bodyType = RigidbodyType2D.Kinematic;
         StartCoroutine(AddAction(() => _rb.velocity = Vector2.zero, duration, ()=> _rb.bodyType = RigidbodyType2D.Dynamic));
     }
 

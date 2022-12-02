@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c0be4440d1a5a745b7d8e098f4ba8e8
-      internalID: 241732860
+      spriteID: a2a67430160b5c24cbf9b0f91b39fd22
+      internalID: -1777940050
       vertices: []
       indices: 
       edges: []
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b174712ed4c7bb43af3433c5c447722
-      internalID: -1176967628
+      spriteID: 4931e09490a706e41b660341386f8a1c
+      internalID: -1046999621
       vertices: []
       indices: 
       edges: []
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 835d515247b2f9a419c951a123f5ec3a
-      internalID: -705566469
+      spriteID: 659b870a745330f4696e89d1c6fe6fc2
+      internalID: 346881243
       vertices: []
       indices: 
       edges: []
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64c3aada5e246bc46b43294126423195
-      internalID: -1142590105
+      spriteID: 0266a65e0570dbc45b33e35ac199b91f
+      internalID: 2094872669
       vertices: []
       indices: 
       edges: []
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cb04605a4344ef4084c0d09f1b39169
-      internalID: -1220067461
+      spriteID: bde5afae95cc0014290e10b7b154afce
+      internalID: -1996537609
       vertices: []
       indices: 
       edges: []
@@ -220,11 +220,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      player_Dash_Up_4: -1220067461
-      player_Dash_Up_0: 241732860
-      player_Dash_Up_1: -1176967628
-      player_Dash_Up_3: -1142590105
-      player_Dash_Up_2: -705566469
+      player_Dash_Up_4: -1996537609
+      player_Dash_Up_0: -1777940050
+      player_Dash_Up_1: -1046999621
+      player_Dash_Up_3: 2094872669
+      player_Dash_Up_2: 346881243
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76f8047cb70e33a4fb31949ea0d4d062
-      internalID: -11003399
+      spriteID: 08b0c423078041044b10124f0548c30e
+      internalID: 147688676
       vertices: []
       indices: 
       edges: []
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b7eb4eaa2a220a49b88df69cc3a5cd6
-      internalID: -693606164
+      spriteID: d845183428123f54aaf32fb7797c2852
+      internalID: 201952854
       vertices: []
       indices: 
       edges: []
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04c5d320a3a16c94fbfe8ce5fc249ee2
-      internalID: -1853569690
+      spriteID: 143916b4fdd1d9b4a97c458deb0bbc85
+      internalID: 1935471374
       vertices: []
       indices: 
       edges: []
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00c93f8584a89c74faa6f704ea97c783
-      internalID: -1145082763
+      spriteID: 9e349a3763af3d14b8032c216abac04c
+      internalID: 386173498
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Land_Slow_1: -693606164
-      Player_Land_Slow_3: -1145082763
-      Player_Land_Slow_2: -1853569690
-      Player_Land_Slow_0: -11003399
+      Player_Land_Slow_1: 201952854
+      Player_Land_Slow_3: 386173498
+      Player_Land_Slow_2: 1935471374
+      Player_Land_Slow_0: 147688676
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

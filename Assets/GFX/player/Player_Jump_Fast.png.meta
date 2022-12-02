@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2eb33476ccbdac46b12da0745d35b10
-      internalID: -220947905
+      spriteID: fd88f4e029bb77f4c9bef6b1821ae405
+      internalID: 1603893173
       vertices: []
       indices: 
       edges: []
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43a0d74b3962c374294f9cd86a3142e5
-      internalID: 715631139
+      spriteID: 7e6706b2d6cbaa147b04f6772481a5c0
+      internalID: 1053039127
       vertices: []
       indices: 
       edges: []
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dbc78bbf4b29d54ebd4a9625143adcf
-      internalID: 825172358
+      spriteID: e8cb874ca518f23449683a50d709a987
+      internalID: 54462901
       vertices: []
       indices: 
       edges: []
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eddb3ccca477db44794c2c7ca73edb00
-      internalID: 608208501
+      spriteID: 65d9e9fc3c91d3941adddeb372c6323c
+      internalID: -275035681
       vertices: []
       indices: 
       edges: []
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cea010eb70b014469a62df4e826e690
-      internalID: -219387558
+      spriteID: 6d6c661526343dc4ba5f8666386d35c8
+      internalID: 409955064
       vertices: []
       indices: 
       edges: []
@@ -220,11 +220,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player_Jump_Fast_0: -220947905
-      Player_Jump_Fast_1: 715631139
-      Player_Jump_Fast_3: 608208501
-      Player_Jump_Fast_4: -219387558
-      Player_Jump_Fast_2: 825172358
+      Player_Jump_Fast_0: 1603893173
+      Player_Jump_Fast_1: 1053039127
+      Player_Jump_Fast_3: -275035681
+      Player_Jump_Fast_4: 409955064
+      Player_Jump_Fast_2: 54462901
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
