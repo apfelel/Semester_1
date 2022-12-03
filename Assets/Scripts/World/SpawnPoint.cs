@@ -7,6 +7,10 @@ public class SpawnPoint : MonoBehaviour
     private SpriteRenderer _sr;
     [SerializeField]
     private Sprite _onSprite, _offSprite;
+    [SerializeField]
+    private GameObject _light;
+
+    private bool _active;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,18 @@ public class SpawnPoint : MonoBehaviour
     }
     public void ChangeState(bool active)
     {
-        _sr.sprite = active ? _onSprite : _offSprite;
+        if (active == _active) return;
+        _active = active;
+        if (active)
+        {
+            _sr.sprite = _onSprite;
+            _light.SetActive(true);
+            SoundManager.Instance.PlaySound("Campfire");
+        }
+        else
+        {
+            _sr.sprite = _offSprite;
+            _light.SetActive(false);
+        }
     }
 }

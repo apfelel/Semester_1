@@ -25,11 +25,16 @@ public class CinematicActor : MonoBehaviour
             _controlingActions.Invoke();
 
     }
-    public void MoveXSec(float dir, float duration)
+    public void MoveXSec(float dir, float duration, float speedMod = 1)
     {
         _dir = dir;
         _playerController.enabled = false;
-        StartCoroutine(AddAction(() => _playerMovement.Move(_dir, true, false, 1), duration));
+        StartCoroutine(AddAction(() => _playerMovement.Move(_dir, true, false, speedMod), duration));
+    }
+    public void Wait(float duration)
+    {
+        _playerController.enabled = false;
+        StartCoroutine(AddAction(() => _rb.velocity = Vector2.zero, duration, null));
     }
     public void Freeze(float duration)
     {

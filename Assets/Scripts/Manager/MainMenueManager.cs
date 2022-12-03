@@ -7,6 +7,8 @@ public class MainMenueManager : MonoBehaviour
 {
     public void StartGame()
     {
+        GameManager.Instance.Activate();
+        GameManager.Instance.Weakend = true;
         SceneManager.LoadScene("Story");
     }
     public void Quit()

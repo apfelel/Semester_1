@@ -36,6 +36,7 @@ public class GameManager : MonoSingleton<GameManager>
     public PlayerController PlayerController;
     private PlayerAnimationController _playerAnimController;
     private Rigidbody2D _playerRb;
+    [SerializeField]
     private GameObject _playerPrefab;
 
     public string CurControlScheme;
@@ -189,6 +190,7 @@ public class GameManager : MonoSingleton<GameManager>
         SceneVCam = Player.transform.parent.GetComponentInChildren<CinemachineVirtualCamera>();
         PlayerVar.HasGloves = _hasGloves;
         PlayerVar.HasGrapple = _hasGrapple;
+        PlayerController.WeakenedState(Weakend);
         return Player;
     }
     public bool CheckIfLeaving(Direction dir)
@@ -209,6 +211,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void NewSpawnPoint(SpawnPoint spawnPoint)
     {
+        if (spawnPoint == _spawnPoint) return;
         _spawnPoint?.ChangeState(false);
         _spawnPoint = spawnPoint;
         _spawnPoint.ChangeState(true);
@@ -216,6 +219,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void SetWeakenedState(bool IsActive)
     {
+        Weakend = IsActive;
         PlayerController.WeakenedState(IsActive);
     }
 

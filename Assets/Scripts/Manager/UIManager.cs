@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField]
+    private Animator _animFade;
+    [SerializeField]
     private GameObject _pauseMenue;
     [SerializeField]
     private GameObject _settingMenue;
@@ -21,7 +23,6 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField]
     private RectTransform _gemShownPos;
     private Vector2 _gemHiddenPos;
-    private int _delayedGemCount;
     private int _shownGemCount;
     private int _trueGemCount;
     private float _showTimer = 100;
@@ -105,11 +106,19 @@ public class UIManager : MonoSingleton<UIManager>
         Debug.Log(sizeConst);
         //_pixelatedImage.rectTransform.anchoredPosition = new Vector2(camPos.x % sizeConst, camPos.y % sizeConst);
     }
-
     public void UpdateGemCount(int num)
     {
         _showTimer = 0;
         _trueGemCount = num;
         _gemDelayedCountTxt.text = (_trueGemCount - _shownGemCount).ToString();
+    }
+
+    public void FadeIn()
+    {
+        _animFade.Play("FadeIn");
+    }
+    public void FadeOut()
+    {
+        _animFade.Play("FadeOut");
     }
 }

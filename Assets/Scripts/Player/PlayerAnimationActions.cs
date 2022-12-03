@@ -47,4 +47,9 @@ public class PlayerAnimationActions : MonoBehaviour
         _flakesBuildDown.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
         _flakesBuildUp.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
+
+    public void PlaySound(string name)
+    {
+        SoundManager.Instance.PlaySound(name);
+    }
 }

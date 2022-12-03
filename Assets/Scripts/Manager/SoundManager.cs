@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class SoundManager : MonoSingleton<SoundManager>
 {
+
+    [System.Serializable]
+    private struct Sound
+    {
+        public string Name;
+        public List<AudioClip> Clips;
+    }
     [SerializeField]
-    private AudioClip _crystalPickup;
+    private List<Sound> _soundsList = new();
+
+    private Dictionary<string, List<AudioClip>> _soundsDic = new();
 
     private AudioSource _source;
 
@@ -13,9 +22,12 @@ public class SoundManager : MonoSingleton<SoundManager>
     {
         _source = GetComponent<AudioSource>();   
         DontDestroyOnLoad(this);
+
+        _soundsList.ForEach((s) => _soundsDic.Add(s.Name, s.Clips));
     }
-    public void CrystalPickup()
+    public void PlaySound(string name)
     {
-        _source.PlayOneShot(_crystalPickup);
+        var clips = _soundsDic[name];
+        _source.PlayOneShot(clips?[Random.Range(0, clips.Count - 1)]);
     }
 }

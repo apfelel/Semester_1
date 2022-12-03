@@ -5114,7 +5114,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1530657661, guid: dfe4137af5e694146be17a7aa16d0f8f, type: 3}
+  m_Sprite: {fileID: 791319986, guid: dfe4137af5e694146be17a7aa16d0f8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5187,7 +5187,7 @@ MonoBehaviour:
   - {x: 0.047614813, y: 0.588336, z: 0}
   m_ShapePathHash: 1656603557
   m_Mesh: {fileID: 0}
-  m_InstanceId: -743034
+  m_InstanceId: -348028
 --- !u!1 &1250266278485482548
 GameObject:
   m_ObjectHideFlags: 0
@@ -5291,7 +5291,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4660843468381362280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 33, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5346,8 +5346,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 5184457653662716047}
@@ -20459,7 +20459,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5184457652194155446}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9173336, y: 34.032, z: -10}
+  m_LocalPosition: {x: 0.80000114, y: 0.9000006, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20489,7 +20489,7 @@ MonoBehaviour:
   m_Follow: {fileID: 4660843468381362285}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 12.9
+    OrthographicSize: 11.25
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -25701,7 +25701,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5184457653662716040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9173336, y: 34.032, z: -10}
+  m_LocalPosition: {x: 0.80000114, y: 0.9000006, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30804,7 +30804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5330847942602712438}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00999999, y: -0.25999975, z: 0}
+  m_LocalPosition: {x: 0.00999999, y: 1.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30827,7 +30827,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.695
-  m_Color: {r: 1, g: 0.7498561, b: 0.042452812, a: 1}
+  m_Color: {r: 1, g: 0.4947958, b: 0.043137252, a: 1}
   m_Intensity: 0.55
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0

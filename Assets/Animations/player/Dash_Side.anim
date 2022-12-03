@@ -275,6 +275,13 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
+    functionName: PlayFlakes
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 4
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
     functionName: PlayDash
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -282,9 +289,9 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0
-    functionName: PlayFlakes
-    data: 
+    functionName: PlaySound
+    data: Dash
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 4
+    floatParameter: 0
     intParameter: 0
     messageOptions: 0
