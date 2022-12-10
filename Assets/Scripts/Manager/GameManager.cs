@@ -34,7 +34,8 @@ public class GameManager : MonoSingleton<GameManager>
     public CinematicActor PlayerCinematic;
     [HideInInspector]
     public PlayerController PlayerController;
-    private PlayerAnimationController _playerAnimController;
+    [HideInInspector]
+    public PlayerAnimationController PlayerAnimController;
     private Rigidbody2D _playerRb;
     [SerializeField]
     private GameObject _playerPrefab;
@@ -107,7 +108,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         Player.GetComponentInChildren<PlayerAnimationActions>().StopAll();
         ResetPlayer();
-        _playerAnimController.DeathAnim();
+        PlayerAnimController.DeathAnim();
         StartCoroutine(DeathDelay());
     }
     private IEnumerator DeathDelay()
@@ -121,7 +122,7 @@ public class GameManager : MonoSingleton<GameManager>
 
         PlayerCinematic.MoveXSec(0, 2);
         yield return new WaitForSeconds(1);
-        _playerAnimController.RespawnAnim();
+        PlayerAnimController.RespawnAnim();
         yield return new WaitForSeconds(1);
     }
 
@@ -182,7 +183,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
         PlayerVar = Player.GetComponent<PlayerVar>();
         PlayerVar.ResizeHair(Collectibles);
-        _playerAnimController = Player.GetComponent<PlayerAnimationController>();
+        PlayerAnimController = Player.GetComponent<PlayerAnimationController>();
         PlayerCinematic = Player.GetComponent<CinematicActor>();
         _playerRb = Player.GetComponent<Rigidbody2D>();
         PlayerController = Player.GetComponent<PlayerController>();

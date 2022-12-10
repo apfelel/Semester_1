@@ -7,4 +7,6 @@ public class LVLManager :MonoSingleton<LVLManager>
 {
     public float CamSize;
     public float VelocityLimit;
+
+    public string MusicName;
 }

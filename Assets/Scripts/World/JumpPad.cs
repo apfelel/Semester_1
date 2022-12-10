@@ -28,5 +28,10 @@ public class JumpPad : MonoBehaviour
     private void ResetDir()
     {
         _direction = transform.up;
-    }   
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + (transform.up * 3));
+    }
 }

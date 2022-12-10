@@ -10,11 +10,14 @@ public class SpawnPoint : MonoBehaviour
     [SerializeField]
     private GameObject _light;
 
+    private AudioSource _source;
     private bool _active;
     // Start is called before the first frame update
     void Start()
     {
         _sr = GetComponent<SpriteRenderer>();
+        _source = GetComponent<AudioSource>();
+        _source.mute = true;
     }
 
     // Update is called once per frame
@@ -38,10 +41,12 @@ public class SpawnPoint : MonoBehaviour
         {
             _sr.sprite = _onSprite;
             _light.SetActive(true);
-            SoundManager.Instance.PlaySound("Campfire");
+            SoundManager.Instance.PlaySound("Campfire", 1);
+            _source.mute = false;
         }
         else
         {
+            _source.mute = true;
             _sr.sprite = _offSprite;
             _light.SetActive(false);
         }

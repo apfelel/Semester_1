@@ -5,6 +5,8 @@ using UnityEngine;
 public class UnlockMovement : MonoBehaviour
 {
     [SerializeField]
+    private string _newMusic;
+    [SerializeField]
     private float _newCamSize;
     [SerializeField]
     private bool _weakenedState;
@@ -19,6 +21,7 @@ public class UnlockMovement : MonoBehaviour
     }
     private IEnumerator StartSequence()
     {
+        SoundManager.Instance.PlayMusic(_newMusic);
         GameManager.Instance.PlayerCinematic.Wait(2);
 
         yield return new WaitForSeconds(2);
@@ -32,6 +35,6 @@ public class UnlockMovement : MonoBehaviour
         UIManager.Instance.FadeIn();
         GameManager.Instance.SetWeakenedState(_weakenedState);
         GameManager.Instance.ChangeScreensize(_newCamSize);
-        GameManager.Instance.PlayerCinematic.Wait(1);
+        GameManager.Instance.PlayerCinematic.Wait(1);  
     }
 }

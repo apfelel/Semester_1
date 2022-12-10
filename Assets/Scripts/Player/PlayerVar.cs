@@ -97,6 +97,8 @@ public class PlayerVar : MonoBehaviour
             return false;
         }
     }
+
+
     [HideInInspector]
     public bool IsWallInFront;
     [HideInInspector]
@@ -107,7 +109,19 @@ public class PlayerVar : MonoBehaviour
 
     [Header("Dash Things")]
     public bool IsDashing;
-    public bool HasDash;
+    public bool HasDash 
+    { 
+        get => _hasDash;
+        set
+        {
+            if (!_hasDash && value)
+            {
+                GameManager.Instance.PlayerAnimController.RefreshDash();
+            }
+                _hasDash = value;
+        }
+    }
+    private bool _hasDash = true;
     [Header("Hair Things")]
     [SerializeField]
     private ParticleSystem _hairVolume;

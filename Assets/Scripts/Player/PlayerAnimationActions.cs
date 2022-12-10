@@ -48,8 +48,8 @@ public class PlayerAnimationActions : MonoBehaviour
         _flakesBuildUp.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 
-    public void PlaySound(string name)
+    public void PlaySound(AnimationEvent myEvent)
     {
-        SoundManager.Instance.PlaySound(name);
+        SoundManager.Instance.PlaySound(myEvent.stringParameter, myEvent.floatParameter);
     }
 }

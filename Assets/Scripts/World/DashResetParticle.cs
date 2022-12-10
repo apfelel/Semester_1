@@ -19,7 +19,8 @@ public class DashResetParticle : MonoBehaviour
 
         if (walkVector.magnitude > Vector2.Distance(transform.position, _target.transform.position + _target.transform.up))
         {
-            GameManager.Instance.PlayerVar.HasDash = true;
+            GameManager.Instance.Player.GetComponent<PlayerDash>().RegainDash();
+            SoundManager.Instance.PlaySound("PickUp", 0.6f);
             Destroy(gameObject);
         }
     }

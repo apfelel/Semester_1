@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         _pauseAction.Enable();
     }
 
-    private void EnableInput()
+    public void EnableInput()
     {
         _moveAction = _playerInputActions.Player.Move;
         _moveAction.Enable();
@@ -92,17 +92,12 @@ public class PlayerController : MonoBehaviour
         _wallClimb = GetComponent<PlayerWallClimb>();
         _playerVar = GetComponent<PlayerVar>();
         _playerInput = GetComponent<PlayerInput>();
-        _playerInput.onControlsChanged += ControlsChanged;
-        GameManager.Instance.CurControlScheme = _playerInput.currentControlScheme;
-    }
-
-    private void ControlsChanged(PlayerInput obj)
-    {
-        GameManager.Instance.CurControlScheme = obj.currentControlScheme;
     }
 
     void FixedUpdate()
     {
+        GameManager.Instance.CurControlScheme = _playerInput.currentControlScheme;
+
         _moveInput = _moveAction.ReadValue<float>();
         _playerMovement.Move(_moveInput, _playerVar.IsGrounded, _playerVar.IsHooked, _playerVar.IsWeakened? 0.5f: 1);
         
@@ -119,7 +114,7 @@ public class PlayerController : MonoBehaviour
         }
 
         _playerVar.JumpBuffer -= Time.deltaTime;
-        if (_playerVar.JumpBuffer > 0 && !_playerVar.IsHooked && _playerVar.IsGroundedBuffered & !_playerVar.IsWallsliding & !_playerVar.Jumped)
+        if (_playerVar.JumpBuffer > 0 && !_playerVar.IsHooked && _playerVar.IsGroundedBuffered & !_playerVar.IsWallsliding & !_playerVar.Jumped && _playerVar.HasDash)
         {
             if (!_jumpAction.IsPressed())
             {
@@ -179,11 +174,11 @@ public class PlayerController : MonoBehaviour
     private void Pause(InputAction.CallbackContext obj)
     {
        
-        UIManager.Instance.SwitchPause();
         if (UIManager.Instance.IsPaused)
             EnableInput();
         else
             DisableInput();
+        UIManager.Instance.SwitchPause();
     }
 
     public void WeakenedState(bool isActive)
@@ -193,12 +188,13 @@ public class PlayerController : MonoBehaviour
         {
             _moveAction = _playerInputActions.Player.Move;
             _moveAction.Enable();
+            _pauseAction.Disable();
         }
         else
         {
             EnableInput();
+            _pauseAction.Enable();
         }
         _playerVar.IsWeakened = isActive;
-        Debug.Log("weak");
     }
 }

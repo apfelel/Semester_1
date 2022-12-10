@@ -13,7 +13,7 @@ public class PlayerWallClimb : MonoBehaviour
     [SerializeField]
     private Vector2 _jumpForceStrength;
 
-    [Range(0f, 1f)]
+    [Range(0f, 0.3f)]
     [SerializeField]
     private float _yDampMult;
     // Start is called before the first frame update
@@ -23,13 +23,13 @@ public class PlayerWallClimb : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(_wallSlide)
         {
             if (_rb.velocity.y < 0)
             {
-                _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * (1- _yDampMult));
+                _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * (1 - _yDampMult));
             }
         }
     }

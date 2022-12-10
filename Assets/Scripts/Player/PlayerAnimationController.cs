@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using System.Linq;
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]
@@ -16,10 +16,17 @@ public class PlayerAnimationController : MonoBehaviour
     private SpriteRenderer _gfx;
 
     [SerializeField]
-    private GameObject _hair;
+    private ParticleSystem _hair;
+    [SerializeField]
+    private ParticleSystem _dashRefresh;
 
     private List<ParticleSystem.MainModule> _ps;
     private bool _dashAnimPlayed;
+    [SerializeField]
+    private Gradient _dodgedHairColor;
+    private Gradient _startHairColor;
+    [SerializeField]
+    private Gradient _curHairColor;
 
     [SerializeField]
     private GameObject _rotationObjectX;
@@ -35,10 +42,34 @@ public class PlayerAnimationController : MonoBehaviour
         _grapple = GetComponent<Grapple>();
 
         _ps = new List<ParticleSystem.MainModule>(GetComponentsInChildren<ParticleSystem>().Select(p => p.main));
+        var colOverT = _hair.colorOverLifetime;
+        _startHairColor = colOverT.color.gradient;
+        _curHairColor = colOverT.color.gradient;
     }
 
     private void LateUpdate()
     {
+        
+        var colOverT = _hair.colorOverLifetime;
+        if (_playerVar.HasDash)
+        {
+            var keys = _curHairColor.colorKeys;
+            for (int i = 0; i < _startHairColor.colorKeys.Count(); i++)
+            {
+                keys[i].color = _curHairColor.colorKeys[i].color * 0.95f + _startHairColor.colorKeys[i].color * 0.05f;
+            }
+            _curHairColor.SetKeys(keys, _curHairColor.alphaKeys);
+        }
+        else
+        {
+            var keys = _curHairColor.colorKeys;
+            for (int i = 0; i < _startHairColor.colorKeys.Count(); i++)
+            {
+                keys[i].color = _curHairColor.colorKeys[i].color * 0.95f + _dodgedHairColor.colorKeys[i].color * 0.05f;
+            }
+            _curHairColor.SetKeys(keys, _curHairColor.alphaKeys);
+        }
+        colOverT.color = _curHairColor;
         _ps.ForEach((p) => p.emitterVelocity = _rb.velocity);
 
         if (Mathf.Abs(_rb.velocity.x) < 1.4f)
@@ -106,15 +137,18 @@ public class PlayerAnimationController : MonoBehaviour
             {
                 _gfx.flipX = true;
                 _rotationObjectX.transform.rotation = Quaternion.Euler(0, 180, 0);
-                _rotationObject.transform.localRotation = new Quaternion(_gfx.transform.rotation.x, _gfx.transform.rotation.y, -_gfx.transform.rotation.z, _gfx.transform.rotation.w);
+                _rotationObject.transform.localRotation = _gfx.transform.rotation;
             }
             if (_rb.velocity.x > 0.1f)
             {
                 _gfx.flipX = false;
                 _rotationObjectX.transform.rotation = Quaternion.Euler(0, 0, 0);
-                _rotationObject.transform.localRotation = new Quaternion(_gfx.transform.rotation.x, _gfx.transform.rotation.y, _gfx.transform.rotation.z, _gfx.transform.rotation.w);
+                _rotationObject.transform.localRotation = _gfx.transform.rotation;
             }
         }
+        else
+            _rotationObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
         if (_playerVar.IsHooked)
         {
             _gfx.transform.up = Vector2.Lerp(_gfx.transform.up, _grapple.CurAnchor - _gfx.transform.position, Time.deltaTime * 4);
@@ -151,5 +185,10 @@ public class PlayerAnimationController : MonoBehaviour
     public void RespawnAnim()
     {
         _anim.Play("Spawn");
+    }
+
+    public void RefreshDash()
+    {
+        _dashRefresh.Play();
     }
 }

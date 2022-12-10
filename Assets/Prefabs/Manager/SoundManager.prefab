@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69acdf619271d4e41a44ee010cbf3f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SfxVolume: 0
   _soundsList:
   - Name: StoneStep
     Clips:
@@ -74,7 +75,16 @@ MonoBehaviour:
   - Name: Respawn
     Clips:
     - {fileID: 8300000, guid: 069a1e4d7bdffad4b99d65ae54c2d42b, type: 3}
-    - {fileID: 8300000, guid: f360cbc4682780043a60135cab970ac1, type: 3}
+  - Name: PickUp
+    Clips:
+    - {fileID: 8300000, guid: 5066470ec469c3943acf6dc7d9c99427, type: 3}
+  _musicList:
+  - Name: Title
+    Clip: {fileID: 8300000, guid: ae22a8b8befb2644c97e6f0d8467c912, type: 3}
+  - Name: Sad
+    Clip: {fileID: 8300000, guid: 0bdf9dcfb9bfbbe4f88414f55213cccb, type: 3}
+  - Name: Mystery
+    Clip: {fileID: 8300000, guid: 2247b164815efbd4e92ba2cd446aa113, type: 3}
 --- !u!82 &2788120686587864828
 AudioSource:
   m_ObjectHideFlags: 0

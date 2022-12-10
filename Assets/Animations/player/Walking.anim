@@ -423,13 +423,13 @@ AnimationClip:
     functionName: PlaySound
     data: StoneStep
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
+    floatParameter: 0.5
     intParameter: 0
     messageOptions: 0
   - time: 0.5
     functionName: PlaySound
     data: StoneStep
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
+    floatParameter: 0.5
     intParameter: 0
     messageOptions: 0

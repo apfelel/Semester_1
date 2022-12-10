@@ -269,6 +269,17 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Negative",
+                    "id": "9d59d885-c75a-4970-beeb-5f1406bb7f17",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + Mouse",
+                    "action": "Vertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "Positive",
                     "id": "5cd144cf-5315-44d3-8e1a-af7c7bdde7ba",
                     "path": "<Keyboard>/w",
@@ -283,6 +294,17 @@
                     "name": "Positive",
                     "id": "37b302f0-bd8a-4a32-8856-87a8c27ec9d6",
                     "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + Mouse",
+                    "action": "Vertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "c63a7240-b899-48ea-8d49-a80958a32e6b",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + Mouse",
@@ -308,6 +330,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6612c7a2-4cd0-4142-b348-c82ece3c8377",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false

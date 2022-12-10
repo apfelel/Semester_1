@@ -25,9 +25,10 @@ public class CollectibleParticle : MonoBehaviour
         _rng = new Vector2(Random.Range(0f, 100f), Random.Range(0f, 100f));
         _target = GameManager.Instance.Player;
 
-        _spreadTime *= Random.Range(0, 1f);
+        _spreadTime *= Random.Range(0.5f, 1.2f);
         _speed *= Random.Range(0.7f, 1.3f);
 
+        _waitTime *= Random.Range(0.3f, 1.3f);
         transform.Rotate(new Vector3(0, 0, Random.Range(-45, 45)));
     }
 
@@ -62,6 +63,7 @@ public class CollectibleParticle : MonoBehaviour
                 break;
             case State.Death:
                 GameManager.Instance.Collectibles += 1;
+                SoundManager.Instance.PlaySound("PickUp", 0.2f);
                 Destroy(gameObject);
                 break;
         }

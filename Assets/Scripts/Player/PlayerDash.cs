@@ -28,7 +28,7 @@ public class PlayerDash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_playerVar.HasDash & !_playerVar.IsDashing)
+        if(!_playerVar.HasDash & !_playerVar.IsDashing && _cooldown < _cooldownTimer)
             if(_playerVar.IsGrounded)
                 _playerVar.HasDash = true;
         if(_playerVar.IsDashing)
@@ -70,6 +70,7 @@ public class PlayerDash : MonoBehaviour
 
     public void RegainDash()
     {
+        _cooldownTimer = 10;
         _playerVar.HasDash = true;
     }
 }

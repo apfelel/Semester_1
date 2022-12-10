@@ -23,7 +23,7 @@ public class LightTrigger : MonoBehaviour
             _active = true;
             _sr.sprite = _onSprite;
             _light.SetActive(true);
-            SoundManager.Instance.PlaySound("Torch");
+            SoundManager.Instance.PlaySound("Torch", 1.2f);
         }
     }
 }
