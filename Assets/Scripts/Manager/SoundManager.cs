@@ -1,24 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoSingleton<SoundManager>
 {
-    [HideInInspector]
-    public float SfxVolume;
-    private float musicVolume;
-    public float MusicVolume
-    {
-        get => musicVolume; 
 
-        set
-        {
-            musicVolume = value;
-            RefreshSoundVolume();
-        }
-    }
-
+    [SerializeField]
+    private AudioMixer _audioMixer;
     [System.Serializable]
     private struct Sound
     {
@@ -37,31 +27,54 @@ public class SoundManager : MonoSingleton<SoundManager>
     private List<Music> _musicList = new();
     private Dictionary<string, List<AudioClip>> _soundsDic = new();
     private Dictionary<string, AudioClip> _musicDic = new();
-    private AudioSource _source;
-    private AudioSource _sourceMusic;
+    private AudioSource _sfxSource;
+    private AudioSource _musicSource;
+    private AudioSource _ambientSource;
 
-   
+    public enum AudioNames
+    {
+        SFX, Music, Master, Ambient
+    }
     private void Start()
     {
-        _sourceMusic = transform.GetChild(0).GetComponent<AudioSource>();
+        _musicSource = transform.GetChild(0).GetComponent<AudioSource>();
+        _ambientSource = transform.GetChild(1).GetComponent<AudioSource>();
 
-        SfxVolume = PlayerPrefs.GetFloat("SfxVolume", -1);
-        if (SfxVolume == -1)
+        var _sfxVolume = PlayerPrefs.GetFloat("SfxVolume", -1);
+        if (_sfxVolume == -1)
         {
-            SfxVolume = 1;
+            _sfxVolume = 1;
             PlayerPrefs.SetFloat("SfxVolume", 1);
-            PlayerPrefs.Save();
         }
+        ChangeVolume(AudioNames.SFX, _sfxVolume);
 
-        MusicVolume = PlayerPrefs.GetFloat("MusicVolume", -1);
-        if (MusicVolume == -1)
+        var _masterVolume = PlayerPrefs.GetFloat("MasterVolume", -1);
+        if (_masterVolume == -1)
         {
-            MusicVolume = 1;
-            PlayerPrefs.SetFloat("MusicVolume", 1);
-            PlayerPrefs.Save();
+            _masterVolume = 1;
+            PlayerPrefs.SetFloat("MasterVolume", 1);
         }
+        ChangeVolume(AudioNames.SFX, _masterVolume);
 
-        _source = GetComponent<AudioSource>();   
+        var _ambientVolume = PlayerPrefs.GetFloat("AmbientVolume", -1);
+        if (_ambientVolume == -1)
+        {
+            _ambientVolume = 1;
+            PlayerPrefs.SetFloat("AmbientVolume", 1);
+        }
+        ChangeVolume(AudioNames.SFX, _ambientVolume);
+
+        var _musicVolume = PlayerPrefs.GetFloat("MusicVolume", -1);
+        if (_musicVolume == -1)
+        {
+            _musicVolume = 1;
+            PlayerPrefs.SetFloat("MusicVolume", 1);
+        }
+        ChangeVolume(AudioNames.Music, _musicVolume);
+       
+        
+        PlayerPrefs.Save();
+        _sfxSource = GetComponent<AudioSource>();   
         DontDestroyOnLoad(this);
         _soundsList.ForEach((s) => _soundsDic.Add(s.Name, s.Clips));
         _musicList.ForEach((s) => _musicDic.Add(s.Name, s.Clip));
@@ -77,17 +90,16 @@ public class SoundManager : MonoSingleton<SoundManager>
     public void PlaySound(string name, float volume)
     {
         var clips = _soundsDic[name];
-        _source.PlayOneShot(clips?[Random.Range(0, clips.Count - 1)], volume * SfxVolume);
+        _sfxSource.PlayOneShot(clips?[Random.Range(0, clips.Count - 1)], volume);
     }
 
     public void PlayMusic(string name)
     {
-        _sourceMusic.clip = _musicDic.GetValueOrDefault(name);
-        _sourceMusic.Play();
+        _musicSource.clip = _musicDic.GetValueOrDefault(name);
+        _musicSource.Play();
     }
-    private void RefreshSoundVolume()
+    public void ChangeVolume(AudioNames name, float value)
     {
-        _sourceMusic.volume = musicVolume / 5;
+        _audioMixer.SetFloat(name.ToString(), Mathf.Log(value) * 20f);
     }
-
 }

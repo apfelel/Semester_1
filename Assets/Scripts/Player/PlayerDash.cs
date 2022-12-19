@@ -7,17 +7,18 @@ public class PlayerDash : MonoBehaviour
 
     [SerializeField]
     private float _minSpeed;
-    private Vector2 _dashForce, _endSpeed;
+    private Vector2 _dashForce;
     [SerializeField]
     private ParticleSystem _ps;
 
     [SerializeField]
-    private float _duration, _strength, _cooldown;
-
+    private float _dashDuration, _strength, _cooldown;
+    private float _dashTimer;
     float _cooldownTimer;
     private PlayerVar _playerVar;
     private Rigidbody2D _rb;
 
+    private bool _dashResetCheck;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +29,25 @@ public class PlayerDash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_playerVar.HasDash & !_playerVar.IsDashing && _cooldown < _cooldownTimer)
+        if (_dashResetCheck && _dashDuration >= _dashTimer)
+        {
+        Debug.Log(_rb.velocity.y);
+        Debug.Log(_dashResetCheck);
+        Debug.Log(_playerVar.IsDashing);
+        Debug.Log(_playerVar.IsDashing);
+            _dashResetCheck = _playerVar.IsDashing;
+            _dashTimer += Time.deltaTime;
+            if (_dashDuration < _dashTimer | !_dashResetCheck)
+            {
+                _playerVar.IsDashing = false;
+                _rb.gravityScale = 2;
+            }
+        }
+
+        if (!_playerVar.HasDash & !_playerVar.IsDashing && _cooldown < _cooldownTimer)
             if(_playerVar.IsGrounded)
                 _playerVar.HasDash = true;
+        
         if(_playerVar.IsDashing)
         {
             _rb.velocity = _dashForce;
@@ -51,23 +68,15 @@ public class PlayerDash : MonoBehaviour
                 dir = new Vector2(dir.x * 0.8f, dir.y * 0.6f);
 
             _dashForce = dir * _minSpeed;
-            _endSpeed = _dashForce;
             _ps.Play();
-            StartCoroutine(DashDelay());
+
+            _rb.gravityScale = 0;
+            _playerVar.HasDash = false;
+            _playerVar.IsDashing = true;
+            _dashResetCheck = true;
+            _dashTimer = 0;
         }
     }
-
-    private IEnumerator DashDelay()
-    {
-        _rb.gravityScale = 0;
-        _playerVar.HasDash = false;
-        _playerVar.IsDashing = true;
-        yield return new WaitForSeconds(_duration);
-        _playerVar.IsDashing = false;
-        _rb.gravityScale = 2;
-        _rb.velocity = _endSpeed;
-    }
-
     public void RegainDash()
     {
         _cooldownTimer = 10;

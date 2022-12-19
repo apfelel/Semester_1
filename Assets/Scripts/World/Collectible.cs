@@ -10,7 +10,9 @@ public class Collectible : MonoBehaviour
     [SerializeField]
     private GameObject _particle;
     [SerializeField]
-    private Sprite _destroyedSprite;
+    private Animator _crystalAnim;
+    [SerializeField]
+    private GameObject _light;
     [SerializeField]
     private Vector2 _particleDirection, _spawnOffset;
     [SerializeField]
@@ -29,7 +31,8 @@ public class Collectible : MonoBehaviour
                 gb.transform.up = _particleDirection;
                 gb.transform.position = transform.position + (Vector3)_spawnOffset + new Vector3(Random.Range(-_randomSpawn, _randomSpawn), Random.Range(-_randomSpawn, _randomSpawn));
             }
-            _sr.sprite = _destroyedSprite;
+            _crystalAnim.Play("Destroy");
+            _light.SetActive(false);
             Destroy(GetComponent<Collider2D>());
         }
     }

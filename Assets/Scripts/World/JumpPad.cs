@@ -16,10 +16,11 @@ public class JumpPad : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             var pc = GameManager.Instance.PlayerController;
-            //pc.Rb.AddForce((_direction == Vector2.zero ? (Vector2)transform.up : _direction.normalized) * _force);
+            GameManager.Instance.PlayerVar.HasDash = true;
+            GameManager.Instance.PlayerVar.IsDashing = false;
             pc.Rb.velocity = _direction * _force;
             pc.SkipGroundedBuffer();
-            GameManager.Instance.PlayerVar.HasDash = true;
+           
         }
     }
 
@@ -32,6 +33,6 @@ public class JumpPad : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawLine(transform.position, transform.position + (transform.up * 3));
+        Gizmos.DrawLine(transform.position, transform.position + ((Vector3)_direction * 3));
     }
 }

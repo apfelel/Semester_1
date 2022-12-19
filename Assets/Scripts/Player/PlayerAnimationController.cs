@@ -137,13 +137,13 @@ public class PlayerAnimationController : MonoBehaviour
             {
                 _gfx.flipX = true;
                 _rotationObjectX.transform.rotation = Quaternion.Euler(0, 180, 0);
-                _rotationObject.transform.localRotation = _gfx.transform.rotation;
+                //_rotationObject.transform.localRotation = _gfx.transform.rotation;
             }
             if (_rb.velocity.x > 0.1f)
             {
                 _gfx.flipX = false;
                 _rotationObjectX.transform.rotation = Quaternion.Euler(0, 0, 0);
-                _rotationObject.transform.localRotation = _gfx.transform.rotation;
+                //_rotationObject.transform.localRotation = _gfx.transform.rotation;
             }
         }
         else
@@ -176,6 +176,7 @@ public class PlayerAnimationController : MonoBehaviour
         else 
         {
             _gfx.transform.up = Vector2.Lerp(_gfx.transform.up, Vector2.up, Time.deltaTime * 6);
+            _rotationObjectX.transform.localRotation = Quaternion.Euler(0, _rotationObjectX.transform.localRotation.eulerAngles.y, 0);
         }
     }
     public void DeathAnim()

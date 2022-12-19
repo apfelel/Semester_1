@@ -11,6 +11,10 @@ public class UIManager : MonoSingleton<UIManager>
     private Slider _musicSlider;
     [SerializeField]
     private Slider _sfxSlider;
+    [SerializeField]
+    private Slider _masterSlider;
+    [SerializeField]
+    private Slider _ambientSlider;
 
     [Space]
     [SerializeField]
@@ -76,6 +80,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         _pauseMenue.SetActive(true);
         _settingMenue.SetActive(false);
+        _audioMenue.SetActive(false);
         _pauseMenue.GetComponentInChildren<Selectable>().Select();
         Time.timeScale = 0.0f;
     }
@@ -84,16 +89,18 @@ public class UIManager : MonoSingleton<UIManager>
     {
         _pauseMenue.SetActive(false);
         _settingMenue.SetActive(false);
+        _audioMenue.SetActive(false);
         GameManager.Instance.PlayerController.EnableInput();
         Time.timeScale = 1f;
     }
 
     public void SwitchPause()
     {
-        if (_pauseMenue.activeInHierarchy)
+        if (IsPaused)
         {
             InSetting = false;
             IsPaused = false;
+            
             UnPause();
         }
         else
@@ -129,6 +136,8 @@ public class UIManager : MonoSingleton<UIManager>
     {
         _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         _sfxSlider.value = PlayerPrefs.GetFloat("SfxVolume");
+        _musicSlider.value = PlayerPrefs.GetFloat("MasterVolume");
+        _sfxSlider.value = PlayerPrefs.GetFloat("AmbientVolume");
 
         _audioMenue.GetComponentInChildren<Selectable>().Select();
 
@@ -141,8 +150,6 @@ public class UIManager : MonoSingleton<UIManager>
         _settingMenue.SetActive(true);
         _audioMenue.SetActive(false);
 
-        PlayerPrefs.SetFloat("MusicVolume", SoundManager.Instance.MusicVolume);
-        PlayerPrefs.SetFloat("SfxVolume", SoundManager.Instance.SfxVolume);
         PlayerPrefs.Save();
     }
     public void AllignPixelImage(Vector2 camPos, float curScreenSize, float _renderTextureHeight)
@@ -167,11 +174,23 @@ public class UIManager : MonoSingleton<UIManager>
     }
     public void ChangeMusicVolume(float value)
     {
-        SoundManager.Instance.MusicVolume = value;
+        SoundManager.Instance.ChangeVolume(SoundManager.AudioNames.Music, value);
+        PlayerPrefs.SetFloat("MusicVolume", value);
     }
     public void ChangeSfxVolume(float value)
     {
-        SoundManager.Instance.SfxVolume = value;
+        SoundManager.Instance.ChangeVolume(SoundManager.AudioNames.SFX, value);
+        PlayerPrefs.SetFloat("SfxVolume", value);
+    }
+    public void ChangeMasterVolume(float value)
+    {
+        SoundManager.Instance.ChangeVolume(SoundManager.AudioNames.Master, value);
+        PlayerPrefs.SetFloat("MasterVolume", value);
+    }
+    public void ChangeAmbientVolume(float value)
+    {
+        SoundManager.Instance.ChangeVolume(SoundManager.AudioNames.Ambient, value);
+        PlayerPrefs.SetFloat("AmbientVolume", value);
     }
 
     public void QuitGame()
