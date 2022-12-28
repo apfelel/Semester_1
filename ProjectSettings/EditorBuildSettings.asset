@@ -18,6 +18,15 @@ EditorBuildSettings:
     path: Assets/Settings/Scenes/Levels/L_0.unity
     guid: 1ac58d4a9cfb8df468b79df8c1e55d94
   - enabled: 1
+    path: Assets/Settings/Scenes/Levels/L_1.unity
+    guid: 9975b75c2c0f2d546bbe3a2cd05e51e6
+  - enabled: 1
+    path: Assets/Settings/Scenes/Levels/L_2.unity
+    guid: 02caf94ba75181a49983a8f7789ee56e
+  - enabled: 1
+    path: Assets/Settings/Scenes/Levels/L_3.unity
+    guid: f742b3d0556df5e4eafae49d84f64301
+  - enabled: 1
     path: Assets/Settings/Scenes/TestLevels/Prototyp/P_1.unity
     guid: a588707ff640ff9448f19dbbb1d3c31e
   - enabled: 1

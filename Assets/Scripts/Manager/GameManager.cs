@@ -85,6 +85,8 @@ public class GameManager : MonoSingleton<GameManager>
     private void Start()
     {
         SceneMainCam = Camera.main.gameObject;
+        if(IsActive)
+            SceneManager.sceneLoaded += OnSceneChanged;
     }
     private void LateUpdate()
     {
