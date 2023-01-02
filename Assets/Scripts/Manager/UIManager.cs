@@ -78,6 +78,7 @@ public class UIManager : MonoSingleton<UIManager>
     }
     public void Pause()
     {
+        IsPaused = true;
         _pauseMenue.SetActive(true);
         _settingMenue.SetActive(false);
         _audioMenue.SetActive(false);
@@ -87,6 +88,8 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void UnPause()
     {
+        InSetting = false;
+        IsPaused = false;
         _pauseMenue.SetActive(false);
         _settingMenue.SetActive(false);
         _audioMenue.SetActive(false);
@@ -98,14 +101,10 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if (IsPaused)
         {
-            InSetting = false;
-            IsPaused = false;
-            
             UnPause();
         }
         else
         {
-            IsPaused = true;
             Pause();
         }
     }
