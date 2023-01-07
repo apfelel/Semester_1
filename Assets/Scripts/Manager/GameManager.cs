@@ -1,4 +1,5 @@
 using Cinemachine;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -224,12 +225,13 @@ public class GameManager : MonoSingleton<GameManager>
         Weakend = IsActive;
         PlayerController.WeakenedState(IsActive);
     }
-
+    [Button("Unlock Grapple")]
     public void UnlockGrapple()
     {
         _hasGrapple = true;
         PlayerVar.HasGrapple = true;
     }
+    [Button("Unlock Gloves")]
     public void UnlockGloves()
     {
         _hasGloves = true;
