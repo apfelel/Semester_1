@@ -23,6 +23,9 @@
         },
         {
             "m_Id": "07d7eed61bc94d83931e5b9e5c98e7ec"
+        },
+        {
+            "m_Id": "e018ae0d20254281a9a4635503e5a36b"
         }
     ],
     "m_Keywords": [],
@@ -155,6 +158,9 @@
         },
         {
             "m_Id": "cf6c532822b5401a9e46472990d50a4d"
+        },
+        {
+            "m_Id": "e729d0604dd1477e892bd79ff720398b"
         }
     ],
     "m_GroupDatas": [],
@@ -646,6 +652,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "0f962bc506294c0f8b3963d83bc01d9b"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "e729d0604dd1477e892bd79ff720398b"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "96501d0533d244fc89ff5bb0347564fd"
                 },
                 "m_SlotId": 1
             }
@@ -2728,6 +2748,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "70970118b1a14772880e02972576d4d2",
+    "m_Id": 0,
+    "m_DisplayName": "WobbleTreshhold",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "71393c9208e242978ae0cad2e0dcd1c1",
     "m_Id": 1,
@@ -2776,6 +2811,9 @@
         },
         {
             "m_Id": "07d7eed61bc94d83931e5b9e5c98e7ec"
+        },
+        {
+            "m_Id": "e018ae0d20254281a9a4635503e5a36b"
         }
     ]
 }
@@ -4716,6 +4754,33 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "e018ae0d20254281a9a4635503e5a36b",
+    "m_Guid": {
+        "m_GuidSerialized": "050c77e8-e259-4dcb-8c25-67dfd33b62f2"
+    },
+    "m_Name": "WobbleTreshhold",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "WobbleTreshhold",
+    "m_DefaultReferenceName": "_WobbleTreshhold",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.30000001192092898,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
     "m_ObjectId": "e12e98d6a49f4825b22b6640e4e3a016",
@@ -5083,6 +5148,41 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.BaseColor"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "e729d0604dd1477e892bd79ff720398b",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -2568.0,
+            "y": 624.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "70970118b1a14772880e02972576d4d2"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "e018ae0d20254281a9a4635503e5a36b"
+    }
 }
 
 {

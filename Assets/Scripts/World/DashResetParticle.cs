@@ -14,7 +14,7 @@ public class DashResetParticle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var walkVector = (_target.transform.position + _target.transform.up - transform.position).normalized * 1 * Time.deltaTime * 20;
+        var walkVector = (_target.transform.position + _target.transform.up - transform.position).normalized * 1 * Time.deltaTime * 70;
         transform.position += walkVector;
 
         if (walkVector.magnitude > Vector2.Distance(transform.position, _target.transform.position + _target.transform.up))

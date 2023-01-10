@@ -183,6 +183,10 @@ public class PlayerAnimationController : MonoBehaviour
     {
         _anim.Play("Death");
     }
+    public void Idle()
+    {
+        _anim.Play("Idle");
+    }
     public void RespawnAnim()
     {
         _anim.Play("Spawn");

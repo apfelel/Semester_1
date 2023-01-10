@@ -60,6 +60,8 @@ public class GameManager : MonoSingleton<GameManager>
     [HideInInspector]
     public bool Weakend;
 
+
+    private bool _firstLVLZoom = false;
     public Action<float> OnScreensizeChange;
 
     public void ChangeScreensize(float size)
@@ -118,14 +120,19 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerCinematic.Freeze(1);
         yield return new WaitForSeconds(1);
         if (_spawnPoint == null)
-            Player.transform.position = _entry.transform.position;
+        {
+            WalkOutExit();
+            PlayerAnimController.Idle();
+        }
         else
+        {
+            PlayerCinematic.MoveXSec(0, 2);
             Player.transform.position = _spawnPoint.transform.position;
 
-        PlayerCinematic.MoveXSec(0, 2);
-        yield return new WaitForSeconds(1);
-        PlayerAnimController.RespawnAnim();
-        yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1);
+            PlayerAnimController.RespawnAnim();
+            yield return new WaitForSeconds(1);
+        }
     }
 
     private void ResetPlayer()
@@ -154,29 +161,48 @@ public class GameManager : MonoSingleton<GameManager>
     private void OnSceneChanged(Scene arg0, LoadSceneMode arg1)
     {
         _spawnPoint = null;
-        var player = ReloadPlayer();
+        ReloadPlayer();
         if (LVLManager.Instance != null)
         {
             ChangeScreensize(LVLManager.Instance.CamSize);
         }
+        Debug.Log(SceneManager.GetActiveScene().name);
+        Debug.Log(_firstLVLZoom);
+        if (SceneManager.GetActiveScene().name == "L_0" & !_firstLVLZoom)
+        {
+            _firstLVLZoom = true;
+            ChangeScreensize(5);
+        }
 
         if (_exit == null) return;
-
         _entry = GameObject.FindGameObjectsWithTag("Exit").FirstOrDefault(e => (int)e.GetComponent<Exit>().Direction == ((int)_exit + 6) % 4);
         if (_entry == null) return;
 
-        player.transform.position = _entry.transform.position;
-        if (_exit == Direction.Left)
-            PlayerCinematic.MoveXSec(-1, _nextLvlDelay);
-        else if (_exit == Direction.Right)
-            PlayerCinematic.MoveXSec(1, _nextLvlDelay);
+        WalkOutExit();
 
-        if(_exit == Direction.Up)
+        
+    }
+    public void WalkOutExit()
+    {
+        Player.transform.position = _entry.transform.position;
+        if (_exit == Direction.Left)
+        {
+            PlayerCinematic.MoveXSec(-1, _nextLvlDelay);
+            Player.transform.position -= new Vector3(0, _entry.transform.localScale.y / 2);
+        }
+        else if (_exit == Direction.Right)
+        {
+            PlayerCinematic.MoveXSec(1, _nextLvlDelay);
+            Player.transform.position -= new Vector3(0, _entry.transform.localScale.y / 2);
+        }
+
+        if (_exit == Direction.Up)
         {
             _playerRb.AddForce(transform.up * 700);
         }
     }
-    private GameObject ReloadPlayer()
+
+    private void ReloadPlayer()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         if(Player == null)
@@ -194,7 +220,6 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerVar.HasGloves = _hasGloves;
         PlayerVar.HasGrapple = _hasGrapple;
         PlayerController.WeakenedState(Weakend);
-        return Player;
     }
     public bool CheckIfLeaving(Direction dir)
     {

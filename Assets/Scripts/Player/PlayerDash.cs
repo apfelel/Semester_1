@@ -31,10 +31,6 @@ public class PlayerDash : MonoBehaviour
     {
         if (_dashResetCheck && _dashDuration >= _dashTimer)
         {
-        Debug.Log(_rb.velocity.y);
-        Debug.Log(_dashResetCheck);
-        Debug.Log(_playerVar.IsDashing);
-        Debug.Log(_playerVar.IsDashing);
             _dashResetCheck = _playerVar.IsDashing;
             _dashTimer += Time.deltaTime;
             if (_dashDuration < _dashTimer | !_dashResetCheck)
@@ -63,9 +59,25 @@ public class PlayerDash : MonoBehaviour
             //ScreenShake.Instance.ShakeScreen(3, 0.3f);
             _cooldownTimer = 0;
             if (dir.y < -0.1f)
-                dir = new Vector2(dir.x * 0.8f, dir.y * 1.3f);
-            else if (dir.y > 0.1f)
-                dir = new Vector2(dir.x * 0.8f, dir.y * 0.6f);
+            {
+                dir = new Vector2(dir.x * 1f, dir.y * 1.3f);
+                Debug.Log("Down");
+            }
+            else if (dir.y < 0.2f)
+            {
+                dir = new Vector2(dir.x, dir.y);
+                Debug.Log("Side");
+            }
+            else if (dir.y < 0.7f)
+            {
+                dir = new Vector2(dir.x * 0.9f, dir.y * 0.7f);
+                Debug.Log("SideUp");
+            }
+            else 
+            {
+                dir = new Vector2(dir.x * 0.9f, dir.y * 0.8f);
+                Debug.Log("Up");
+            }
 
             _dashForce = dir * _minSpeed;
             _ps.Play();

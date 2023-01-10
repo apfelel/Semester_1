@@ -5365,7 +5365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _drawingInSpeed: 14
-  _drawingInVelLimit: 20
+  _drawingInVelLimit: 35
   RopeSegments: []
 --- !u!114 &2998102315095524444
 MonoBehaviour:
@@ -25649,7 +25649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 1.5, z: 0}
   m_LookaheadTime: 0.2
   m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0

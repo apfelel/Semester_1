@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.65787435, b: 0, a: 1}
+  m_Sprite: {fileID: 1758703979, guid: 961d379dbb5b71542948d07ee0f01eab, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,7 +102,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 3.485719
 --- !u!114 &9129089425762028048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,11 +118,11 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.85
-  m_LightVolumeIntensity: 1
-  m_LightVolumeIntensityEnabled: 0
+  m_FalloffIntensity: 0.722
+  m_Color: {r: 0.49474904, g: 0.7663797, b: 0.9622642, a: 1}
+  m_Intensity: 2
+  m_LightVolumeIntensity: 0.03
+  m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 2.28
+  m_PointLightOuterRadius: 4.61
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -195,6 +195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particle: {fileID: 5284110453805881266, guid: c7a9652aa30240b44a4f8541ea643ce7, type: 3}
-  _activeSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  _inactiveSprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  _activeSprite: {fileID: 1758703979, guid: 961d379dbb5b71542948d07ee0f01eab, type: 3}
+  _inactiveSprite: {fileID: 647526317, guid: 961d379dbb5b71542948d07ee0f01eab, type: 3}
   _delay: 4

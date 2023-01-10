@@ -50,7 +50,7 @@ public class Grapple : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         if(_joint != null)
         {
@@ -66,7 +66,7 @@ public class Grapple : MonoBehaviour
                 RopeSegments.Add(curAnchHit.point);
                 _ropeLine.positionCount++;
                 _joint.connectedAnchor = curAnchHit.point;
-                _shortestDist = (transform.position - CurAnchor).magnitude - 1;
+                _shortestDist = (transform.position - CurAnchor).magnitude - 4;
             }
 
             if (RopeSegments.Count > 1)
@@ -78,7 +78,7 @@ public class Grapple : MonoBehaviour
                     _ropeLine.positionCount--;
                     _joint.connectedAnchor = CurAnchor;
 
-                    _shortestDist = (transform.position - CurAnchor).magnitude - 2;
+                    _shortestDist = (transform.position - CurAnchor).magnitude - 4;
                     _joint.distance = _shortestDist;
                 }
             }
@@ -91,15 +91,23 @@ public class Grapple : MonoBehaviour
             }
             else
             {
-                if(_joint.distance > _ropeLine.transform.localPosition.y)
-                    _joint.distance -= Time.deltaTime * _drawingInSpeed;
+                if (_joint.distance > _ropeLine.transform.localPosition.y)
+                {
+                    _shortestDist -= Time.deltaTime * _drawingInSpeed;
+                    _joint.distance = _shortestDist;
+                }
                 if(_rb.velocity.magnitude > _playerVar.TerminalVelY)
                 {
                     _rb.velocity = _playerVar.TerminalVelY / _rb.velocity.magnitude * _rb.velocity;
                 }
             }
-            DrawRope();
         }
+    }
+
+    private void LateUpdate()
+    {
+        if(_joint != null)
+            DrawRope();
     }
     public void StartGrapple()
     {
@@ -107,7 +115,6 @@ public class Grapple : MonoBehaviour
         if (anchor == null) return;
         RopeSegments.Add(anchor.transform.position);
         if (RopeSegments.Count == 0) return;
-        if (CheckLOS(CurAnchor)) return;
 
         _joint = gameObject.AddComponent<SpringJoint2D>();
         _joint.autoConfigureConnectedAnchor = false;
@@ -160,6 +167,7 @@ public class Grapple : MonoBehaviour
             {
                 if (dist < nearestDist)
                 {
+                    if (CheckLOS(anchor.transform.position)) continue;
                     nearestDist = dist;
                     nearestGb = anchor;
                 }

@@ -7,6 +7,7 @@ public class Parallax : MonoBehaviour
     private GameObject _cam;
     public Vector2 Strength;
 
+    private Vector2 _pos;
 
     // Start is called before the first frame update
     void Start()
