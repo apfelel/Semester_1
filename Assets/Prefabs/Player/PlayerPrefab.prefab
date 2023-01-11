@@ -5187,7 +5187,7 @@ MonoBehaviour:
   - {x: 0.23320007, y: 0.58411837, z: 0}
   m_ShapePathHash: -559373867
   m_Mesh: {fileID: 0}
-  m_InstanceId: -196846
+  m_InstanceId: -555518
 --- !u!1 &1250266278485482548
 GameObject:
   m_ObjectHideFlags: 0
@@ -5381,7 +5381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minSpeed: 17
   _ps: {fileID: 5184457652653084658}
-  _dashDuration: 0.1
+  _dashDuration: 0.2
   _strength: 5
   _cooldown: 0.5
 --- !u!114 &8848100285745763480
@@ -20518,7 +20518,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5184457652194155446}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.34285736, y: 0.38571453, z: -10}
+  m_LocalPosition: {x: 1.2000005, y: 2.8500009, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20548,7 +20548,7 @@ MonoBehaviour:
   m_Follow: {fileID: 4660843468381362285}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 4.821429
+    OrthographicSize: 16.875
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -25760,7 +25760,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5184457653662716040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.34285736, y: 0.38571453, z: -10}
+  m_LocalPosition: {x: 1.2000005, y: 2.8500009, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25789,15 +25789,15 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.24687502
+    y: 0.055555556
+    width: 0.16666667
+    height: 0.16666666
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 4.821429
+  orthographic size: 5.625
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -25897,7 +25897,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 0.75
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []

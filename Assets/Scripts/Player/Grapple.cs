@@ -66,7 +66,7 @@ public class Grapple : MonoBehaviour
                 RopeSegments.Add(curAnchHit.point);
                 _ropeLine.positionCount++;
                 _joint.connectedAnchor = curAnchHit.point;
-                _shortestDist = (transform.position - CurAnchor).magnitude - 4;
+                _shortestDist = (transform.position - CurAnchor).magnitude - 1f;
             }
 
             if (RopeSegments.Count > 1)
@@ -78,7 +78,7 @@ public class Grapple : MonoBehaviour
                     _ropeLine.positionCount--;
                     _joint.connectedAnchor = CurAnchor;
 
-                    _shortestDist = (transform.position - CurAnchor).magnitude - 4;
+                    _shortestDist = (transform.position - CurAnchor).magnitude - 1f;
                     _joint.distance = _shortestDist;
                 }
             }
@@ -95,10 +95,6 @@ public class Grapple : MonoBehaviour
                 {
                     _shortestDist -= Time.deltaTime * _drawingInSpeed;
                     _joint.distance = _shortestDist;
-                }
-                if(_rb.velocity.magnitude > _playerVar.TerminalVelY)
-                {
-                    _rb.velocity = _playerVar.TerminalVelY / _rb.velocity.magnitude * _rb.velocity;
                 }
             }
         }
@@ -123,8 +119,8 @@ public class Grapple : MonoBehaviour
         _shortestDist = Vector2.Distance(transform.position, CurAnchor) * 0.95f;
         _joint.distance = _shortestDist;
         _joint.enableCollision = true;
-        _joint.dampingRatio = 0.8f;
-        _joint.frequency = 0.8f;
+        _joint.dampingRatio = 0.5f;
+        _joint.frequency = 0.9f;
         _rb.velocity = _rb.velocity * 1.10f;
         _ropeLine.positionCount = 2;
 
