@@ -45,7 +45,7 @@ Material:
     - _DownMult: 0
     - _PixelateAmount: 51.18
     - _VelocityMult: 0.5
-    - _WindIntensity: 0.5
+    - _WindIntensity: 0.6
     - _WindSpeed: 1
     - _WobbleTreshhold: 0
     m_Colors: []

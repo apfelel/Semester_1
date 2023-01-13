@@ -5399,7 +5399,7 @@ MonoBehaviour:
   IsWeakened: 0
   HasGloves: 0
   HasGrapple: 0
-  HookMaxRange: 50
+  HookMaxRange: 25
   IsHooked: 0
   AnchorsInScene: []
   CoyoteTime: 0.21
