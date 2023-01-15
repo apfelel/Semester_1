@@ -7,6 +7,7 @@ public class PlayerDash : MonoBehaviour
 
     [SerializeField]
     private float _minSpeed;
+
     private Vector2 _dashForce;
     [SerializeField]
     private ParticleSystem _ps;
@@ -14,7 +15,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField]
     private float _dashDuration, _strength, _cooldown;
     private float _dashTimer;
-    float _cooldownTimer;
+    private float _cooldownTimer;
     private PlayerVar _playerVar;
     private Rigidbody2D _rb;
 

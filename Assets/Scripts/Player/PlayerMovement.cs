@@ -76,5 +76,4 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * 0.6f);
     }
-
 }
