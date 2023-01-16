@@ -53,6 +53,9 @@ public class CamPathTrigger : MonoBehaviour
             {
                 _vCam.Priority = 20;
                 _vCamTrack.m_PathPosition += Time.deltaTime / 2;
+
+                if (_vCamTrack.m_PathPosition > _smoothPath.m_Waypoints.Length)
+                    _vCam.Priority = 0;
             }
         }
     }

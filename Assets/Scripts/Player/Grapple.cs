@@ -175,6 +175,6 @@ public class Grapple : MonoBehaviour
     private RaycastHit2D CheckLOS(Vector3 target)
     {
         var ptoa = target - transform.position;
-        return Physics2D.Raycast(transform.position, ptoa, ptoa.magnitude * 0.999f, _playerVar.GroundLayer);
+        return Physics2D.Raycast(transform.position, ptoa, ptoa.magnitude * 0.999f, _playerVar.WallHitLayer);
     }
 }

@@ -25,6 +25,7 @@ public class Collectible : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySound("CrystalDestroy", 0.5f);
             for (int i = 0; i < _count; i++)
             {
                 var gb = Instantiate(_particle);

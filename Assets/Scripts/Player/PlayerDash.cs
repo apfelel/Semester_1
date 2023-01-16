@@ -69,9 +69,9 @@ public class PlayerDash : MonoBehaviour
                 dir = new Vector2(dir.x, dir.y);
                 Debug.Log("Side");
             }
-            else if (dir.y < 0.7f)
+            else if (dir.y < 0.8f)
             {
-                dir = new Vector2(dir.x * 0.9f, dir.y * 0.7f);
+                dir = new Vector2(dir.x * 0.9f, dir.y * 0.9f);
                 Debug.Log("SideUp");
             }
             else 

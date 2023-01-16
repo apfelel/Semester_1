@@ -48,5 +48,7 @@ public class Flashbang : MonoBehaviour
         yield return new WaitForSeconds(2.4f);
         GameManager.Instance.PlayerCinematic.Wait(3);
         yield return new WaitForSeconds(2);
+
+        Destroy(this);
     }
 }
