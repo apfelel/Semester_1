@@ -421,14 +421,14 @@ AnimationClip:
   m_Events:
   - time: 0.1
     functionName: PlaySound
-    data: StoneStep
+    data: Step
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0.5
     intParameter: 0
     messageOptions: 0
   - time: 0.5
     functionName: PlaySound
-    data: StoneStep
+    data: Step
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0.5
     intParameter: 0

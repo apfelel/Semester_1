@@ -25,12 +25,17 @@ public class SoundManager : MonoSingleton<SoundManager>
     private List<Sound> _soundsList = new();
     [SerializeField]
     private List<Music> _musicList = new();
+    [SerializeField]
+    private List<Music> _ambientList = new();
     private Dictionary<string, List<AudioClip>> _soundsDic = new();
     private Dictionary<string, AudioClip> _musicDic = new();
+    private Dictionary<string, AudioClip> _ambientDic = new();
     private AudioSource _sfxSource;
     private AudioSource _musicSource;
     private AudioSource _ambientSource;
 
+    private AudioReverbZone _reverb;
+    private bool _cave;
     public enum AudioNames
     {
         SFX, Music, Master, Ambient
@@ -39,7 +44,8 @@ public class SoundManager : MonoSingleton<SoundManager>
     {
         _musicSource = transform.GetChild(0).GetComponent<AudioSource>();
         _ambientSource = transform.GetChild(1).GetComponent<AudioSource>();
-
+        _sfxSource = GetComponent<AudioSource>();
+        _reverb = GetComponent<AudioReverbZone>();
         var _sfxVolume = PlayerPrefs.GetFloat("SfxVolume", -1);
         if (_sfxVolume == -1)
         {
@@ -74,21 +80,30 @@ public class SoundManager : MonoSingleton<SoundManager>
        
         
         PlayerPrefs.Save();
-        _sfxSource = GetComponent<AudioSource>();   
         DontDestroyOnLoad(this);
         _soundsList.ForEach((s) => _soundsDic.Add(s.Name, s.Clips));
         _musicList.ForEach((s) => _musicDic.Add(s.Name, s.Clip));
+        _ambientList.ForEach((s) => _ambientDic.Add(s.Name, s.Clip));
 
         SceneManager.sceneLoaded += OnSceneChanged;
     }
-
+    private void Update()
+    {
+        
+    }
     private void OnSceneChanged(Scene arg0, LoadSceneMode arg1)
     {
-        PlayMusic(LVLManager.Instance.MusicName);
+        if (LVLManager.Instance.MusicName != "")
+            PlayMusic(LVLManager.Instance.MusicName);
+
+        if(LVLManager.Instance.AmbientName != "")
+            PlayAmbient(LVLManager.Instance.AmbientName);
     }
 
     public void PlaySound(string name, float volume)
     {
+        if (name == "Step")
+            name = (_cave ? "Stone" : "Grass") + "Step";
         var clips = _soundsDic[name];
         _sfxSource.PlayOneShot(clips?[Random.Range(0, clips.Count - 1)], volume);
     }
@@ -101,5 +116,20 @@ public class SoundManager : MonoSingleton<SoundManager>
     public void ChangeVolume(AudioNames name, float value)
     {
         _audioMixer.SetFloat(name.ToString(), Mathf.Log(value) * 20f);
+    }
+    public void PlayAmbient(string name)
+    {
+        _ambientSource.clip = _ambientDic.GetValueOrDefault(name);
+        _ambientSource.Play();
+    }
+
+    public void SetReverb(bool On)
+    {
+        _reverb.enabled = On;
+    }
+
+    public void ChangeInCave(bool inCave)
+    {
+        _cave = inCave;
     }
 }

@@ -24,8 +24,6 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField]
     private GameObject _settingMenue;
     [SerializeField]
-    private GameObject _audioMenue;
-    [SerializeField]
     private RawImage _pixelatedImage;
 
     [Space]
@@ -49,7 +47,6 @@ public class UIManager : MonoSingleton<UIManager>
     {
         _pauseMenue.SetActive(false);
         _settingMenue.SetActive(false);
-        _audioMenue.SetActive(false);
         _gemHiddenPos = _gemParent.anchoredPosition;
         DontDestroyOnLoad(gameObject);
     }
@@ -81,7 +78,6 @@ public class UIManager : MonoSingleton<UIManager>
         IsPaused = true;
         _pauseMenue.SetActive(true);
         _settingMenue.SetActive(false);
-        _audioMenue.SetActive(false);
         _pauseMenue.GetComponentInChildren<Selectable>().Select();
         Time.timeScale = 0.0f;
     }
@@ -92,7 +88,6 @@ public class UIManager : MonoSingleton<UIManager>
         IsPaused = false;
         _pauseMenue.SetActive(false);
         _settingMenue.SetActive(false);
-        _audioMenue.SetActive(false);
         GameManager.Instance.PlayerController.EnableInput();
         Time.timeScale = 1f;
     }
@@ -115,6 +110,12 @@ public class UIManager : MonoSingleton<UIManager>
             _pauseMenue.SetActive(false);
         _settingMenue.SetActive(true);
         _settingMenue.GetComponentInChildren<Selectable>().Select();
+
+        _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        _sfxSlider.value = PlayerPrefs.GetFloat("SfxVolume");
+        _masterSlider.value = PlayerPrefs.GetFloat("MasterVolume");
+        _ambientSlider.value = PlayerPrefs.GetFloat("AmbientVolume");
+
         InSetting = true;
     }
 
@@ -127,29 +128,10 @@ public class UIManager : MonoSingleton<UIManager>
         }
         else
             EventSystem.current.SetSelectedGameObject(null);
-        _settingMenue.SetActive(false);
-        InSetting = false;
-    }
-
-    public void OpenSound()
-    {
-        _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
-        _sfxSlider.value = PlayerPrefs.GetFloat("SfxVolume");
-        _musicSlider.value = PlayerPrefs.GetFloat("MasterVolume");
-        _sfxSlider.value = PlayerPrefs.GetFloat("AmbientVolume");
-
-        _audioMenue.GetComponentInChildren<Selectable>().Select();
-
-        _settingMenue.SetActive(false);
-        _audioMenue.SetActive(true);
-    }
-    public void CloseSound()
-    {
-        _settingMenue.GetComponentInChildren<Selectable>().Select();
-        _settingMenue.SetActive(true);
-        _audioMenue.SetActive(false);
 
         PlayerPrefs.Save();
+        _settingMenue.SetActive(false);
+        InSetting = false;
     }
     public void AllignPixelImage(Vector2 camPos, float curScreenSize, float _renderTextureHeight)
     {

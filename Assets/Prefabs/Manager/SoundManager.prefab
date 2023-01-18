@@ -215,6 +215,24 @@ MonoBehaviour:
   - Name: CrystalDestroy
     Clips:
     - {fileID: 8300000, guid: 2ccf8479fd5350c4ab4046f1f8c810d5, type: 3}
+  - Name: ButtonHover
+    Clips:
+    - {fileID: 8300000, guid: 5066470ec469c3943acf6dc7d9c99427, type: 3}
+  - Name: ButtonClick
+    Clips:
+    - {fileID: 8300000, guid: 2ccf8479fd5350c4ab4046f1f8c810d5, type: 3}
+  - Name: GrappleStart
+    Clips:
+    - {fileID: 8300000, guid: 0827f75320871a94b8d655ff2289b470, type: 3}
+  - Name: GrappleDrawInStart
+    Clips:
+    - {fileID: 8300000, guid: d7d04153b51566640a646dbfda1caa13, type: 3}
+    - {fileID: 8300000, guid: 91dd3f1a24acdc84ea838fe9da22922a, type: 3}
+  - Name: JumpPad
+    Clips:
+    - {fileID: 8300000, guid: 591c6873cd86cc54781d5e2d2c965c0c, type: 3}
+    - {fileID: 8300000, guid: 6b89211e54db6674abff6c3f6034046e, type: 3}
+    - {fileID: 8300000, guid: 6cbd4b884c6a2c0419058b8c1ae01159, type: 3}
   _musicList:
   - Name: Title
     Clip: {fileID: 8300000, guid: ae22a8b8befb2644c97e6f0d8467c912, type: 3}
@@ -224,6 +242,21 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 2247b164815efbd4e92ba2cd446aa113, type: 3}
   - Name: Hope
     Clip: {fileID: 8300000, guid: dd9aa31946bf4c54baf7aab82212bdd5, type: 3}
+  - Name: L_7
+    Clip: {fileID: 8300000, guid: 767c77c429f0f4045b75b0a1cbfabe09, type: 3}
+  - Name: L_3_1
+    Clip: {fileID: 8300000, guid: e7cce9f3b655cf843ac23acb0f5e22f4, type: 3}
+  - Name: Forest
+    Clip: {fileID: 8300000, guid: d5a3db8ecf790aa48b9d03401dfd6292, type: 3}
+  - Name: L_6_1
+    Clip: {fileID: 8300000, guid: 4a09752198c31fb458f72a23eab6f18b, type: 3}
+  - Name: Last
+    Clip: {fileID: 8300000, guid: be3b41097c8ac144a9faa7a97ef161e0, type: 3}
+  _ambientList:
+  - Name: Cave
+    Clip: {fileID: 8300000, guid: 097791fafed6b7640a082a7b23221c89, type: 3}
+  - Name: Forest
+    Clip: {fileID: 8300000, guid: ca9e264b290f93545a23fc9b0521043d, type: 3}
 --- !u!82 &2788120686587864828
 AudioSource:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class JumpPad : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySound("JumpPad", 0.5f);
             var pc = GameManager.Instance.PlayerController;
             GameManager.Instance.PlayerVar.HasDash = true;
             GameManager.Instance.PlayerVar.IsDashing = false;

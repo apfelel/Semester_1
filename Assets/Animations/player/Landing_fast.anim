@@ -378,7 +378,7 @@ AnimationClip:
   m_Events:
   - time: 0
     functionName: PlaySound
-    data: StoneStep
+    data: Step
     objectReferenceParameter: {fileID: 0}
     floatParameter: 1
     intParameter: 0

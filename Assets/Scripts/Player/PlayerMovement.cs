@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Jump(bool shortenedJump = false)
     {
+        SoundManager.Instance.PlaySound("Step", 0.7f);
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
         if (shortenedJump)
             _rb.AddForce(Vector2.up * _jumpForce * 0.6f);

@@ -8,12 +8,18 @@ public class Flashbang : MonoBehaviour
     [SerializeField]
     private Light2D _light, _globalMid, _globalBack, _lightBack;
 
+    [SerializeField]
+    private GameObject _flock;
+    [SerializeField]
+    private ParticleSystem _fireFly;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
 
         StartCoroutine(Flash());
         StartCoroutine(Animation());
+        _flock.SetActive(true);
+        _fireFly.Play();
     }
 
     IEnumerator Flash()
@@ -39,6 +45,7 @@ public class Flashbang : MonoBehaviour
             _light.intensity = Mathf.Max(0, _light.intensity - 0.02f);
         }
         _light.intensity = 0;
+        Destroy(this);
 
     }
 
@@ -49,6 +56,5 @@ public class Flashbang : MonoBehaviour
         GameManager.Instance.PlayerCinematic.Wait(3);
         yield return new WaitForSeconds(2);
 
-        Destroy(this);
     }
 }

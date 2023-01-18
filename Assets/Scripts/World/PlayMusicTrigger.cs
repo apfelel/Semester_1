@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayMusicTrigger : MonoBehaviour
 {
     [SerializeField]
-    private string _song;
+    private string _song, _ambient;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SoundManager.Instance.PlayMusic(_song);
+        if(_song != "")
+            SoundManager.Instance.PlayMusic(_song);
+        if(_song != "")
+            SoundManager.Instance.PlayAmbient(_ambient);
         Destroy(this);
     }
 }

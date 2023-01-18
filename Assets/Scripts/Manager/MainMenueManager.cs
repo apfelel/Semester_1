@@ -21,7 +21,10 @@ public class MainMenueManager : MonoBehaviour
     private void Update()
     {
         if (!EventSystem.current.currentSelectedGameObject)
-            _lastActive.GetComponent<Button>().Select();
+        {
+            _lastActive.GetComponent<Selectable>().Select();
+            Debug.Log(_lastActive);
+        }
         if (!UIManager.Instance.InSetting)
         {
             _lastActive = EventSystem.current.currentSelectedGameObject;

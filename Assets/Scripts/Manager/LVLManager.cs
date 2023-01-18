@@ -9,4 +9,6 @@ public class LVLManager :MonoSingleton<LVLManager>
     public float VelocityLimit;
 
     public string MusicName;
+
+    public string AmbientName;
 }

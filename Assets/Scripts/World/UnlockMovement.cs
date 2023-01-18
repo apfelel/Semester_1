@@ -37,4 +37,5 @@ public class UnlockMovement : MonoBehaviour
         GameManager.Instance.ChangeScreensize(_newCamSize);
         GameManager.Instance.PlayerCinematic.Wait(1);  
     }
+
 }

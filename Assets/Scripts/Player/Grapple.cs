@@ -16,7 +16,6 @@ public class Grapple : MonoBehaviour
     private float _drawingInSpeed;
     [SerializeField]
     private float _drawingInVelLimit;
-
     private PlayerVar _playerVar;
 
     public List<Vector3> RopeSegments = new List<Vector3>();
@@ -125,9 +124,13 @@ public class Grapple : MonoBehaviour
         _ropeLine.positionCount = 2;
 
         _playerVar.IsHooked = true;
+        SoundManager.Instance.PlaySound("GrappleStart", 0.7f);
     }
     public void EndGrapple()
     {
+        if (!_playerVar.IsHooked) return;
+
+        SoundManager.Instance.PlaySound("GrappleDrawInStart", 0.7f);
         RopeSegments = new List<Vector3>();
         _rb.velocity = _rb.velocity * 1.10f;
         Destroy(GetComponent<SpringJoint2D>());

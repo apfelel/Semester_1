@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerWallClimb : MonoBehaviour
 {
+
     private bool _wallSlide;
     private Rigidbody2D _rb;
 
@@ -27,6 +28,8 @@ public class PlayerWallClimb : MonoBehaviour
     {
         if(_wallSlide)
         {
+            
+
             if (_rb.velocity.y < 0)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * (1 - _yDampMult));
@@ -45,6 +48,7 @@ public class PlayerWallClimb : MonoBehaviour
 
     public void JumpOff(Vector2 wallHit)
     {
+        SoundManager.Instance.PlaySound("Step", 1f);
         if (_rb.velocity.y < 0)
             _rb.velocity = new Vector2(0, _rb.velocity.y / 5);
         else

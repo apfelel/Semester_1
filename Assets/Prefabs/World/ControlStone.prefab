@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1230148384880881974}
   - component: {fileID: 4395736164465281680}
   - component: {fileID: 193863779167977141}
+  - component: {fileID: 2201745351953598144}
   m_Layer: 0
   m_Name: ControlStone
   m_TagString: Untagged
@@ -97,5 +98,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a63139ad444214c8c7991ad58787ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inActive: {fileID: -1931061853, guid: e2fd58b1421a5de469a1f428f1563ac2, type: 3}
-  _active: {fileID: 0}
+  _inactive: {fileID: 0}
+  _activeKey: {fileID: 0}
+  _activeContr: {fileID: 0}
+--- !u!58 &2201745351953598144
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312325791562643777}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.82}
+  serializedVersion: 2
+  m_Radius: 3.05
