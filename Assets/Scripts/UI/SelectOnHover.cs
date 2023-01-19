@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class SelectOnHover : MonoBehaviour, ISelectHandler, ISubmitHandler, IPointerEnterHandler, IPointerUpHandler
 {
+    public Vector3 SelectionMult = Vector3.zero;
+
+    private bool _playUp;
     private Selectable _selectable;
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -15,11 +18,13 @@ public class SelectOnHover : MonoBehaviour, ISelectHandler, ISubmitHandler, IPoi
     void Start()
     {
         _selectable = GetComponent<Selectable>();
+        _playUp = GetComponent<Slider>() == null;
     }
 
     public void OnSubmit(BaseEventData eventData)
     {
-        SoundManager.Instance.PlaySound("ButtonClick", 0.7f);
+        if (_playUp)
+            SoundManager.Instance.PlaySound("ButtonClick", 0.7f);
     }
 
     public void OnSelect(BaseEventData eventData)
@@ -29,6 +34,7 @@ public class SelectOnHover : MonoBehaviour, ISelectHandler, ISubmitHandler, IPoi
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        SoundManager.Instance.PlaySound("ButtonClick", 0.7f);
+        if (_playUp)
+            SoundManager.Instance.PlaySound("ButtonClick", 0.7f);
     }
 }

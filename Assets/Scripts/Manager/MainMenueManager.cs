@@ -13,10 +13,12 @@ public class MainMenueManager : MonoBehaviour
     private GameObject _lastActive;
 
     [SerializeField]
-    private GameObject SelectUI;
+    private GameObject SelectUI, _levelMenu;
     private void Start()
     {
         _start.Select();
+        GameManager.Instance.LockGloves();
+        GameManager.Instance.LockGrapple();
     }
     private void Update()
     {
@@ -25,7 +27,7 @@ public class MainMenueManager : MonoBehaviour
             _lastActive.GetComponent<Selectable>().Select();
             Debug.Log(_lastActive);
         }
-        if (!UIManager.Instance.InSetting)
+        if (!UIManager.Instance.InSetting &! _levelMenu.activeInHierarchy)
         {
             _lastActive = EventSystem.current.currentSelectedGameObject;
             SelectUI.transform.position = Vector3.Lerp(SelectUI.transform.position, EventSystem.current.currentSelectedGameObject.transform.position, 0.1f);
@@ -34,10 +36,32 @@ public class MainMenueManager : MonoBehaviour
     public void StartGame()
     {
         GameManager.Instance.Weakend = true;
-        SceneManager.LoadScene("Story");
+
+        GameManager.Instance.Activate();
+        SceneManager.LoadScene("L_0");
     }
     public void Quit()
     { 
         Application.Quit();
+    }
+
+    public void OpenLevelSelect()
+    {
+        _levelMenu.SetActive(true);
+        _levelMenu.GetComponentInChildren<Selectable>().Select();
+    }
+    public void CloseLevelSelect()
+    {
+        _levelMenu.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+    public void LoadLevel(string lvl)
+    {
+        if(lvl == "L_0")
+        {
+            GameManager.Instance.Weakend = true;
+        }
+        GameManager.Instance.Activate();
+        SceneManager.LoadScene(lvl);
     }
 }

@@ -11,4 +11,6 @@ public class LVLManager :MonoSingleton<LVLManager>
     public string MusicName;
 
     public string AmbientName;
+
+    public GameManager.Direction DefaultExit;
 }

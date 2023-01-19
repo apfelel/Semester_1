@@ -173,6 +173,11 @@ public class GameManager : MonoSingleton<GameManager>
             _firstLVLZoom = true;
             ChangeScreensize(5);
         }
+        else
+        {
+            if(_exit == null)
+                _exit = LVLManager.Instance.DefaultExit;
+        }
 
         if (_exit == null) return;
         _entry = GameObject.FindGameObjectsWithTag("Exit").FirstOrDefault(e => (int)e.GetComponent<Exit>().Direction == ((int)_exit + 6) % 4);
@@ -254,12 +259,29 @@ public class GameManager : MonoSingleton<GameManager>
     public void UnlockGrapple()
     {
         _hasGrapple = true;
-        PlayerVar.HasGrapple = true;
+        if(PlayerVar != null)
+            PlayerVar.HasGrapple = true;
     }
     [Button("Unlock Gloves")]
     public void UnlockGloves()
     {
         _hasGloves = true;
-        PlayerVar.HasGloves = true;
+        if(PlayerVar != null)
+            PlayerVar.HasGloves = true;
+    }
+
+    [Button("Unlock Grapple")]
+    public void LockGrapple()
+    {
+        _hasGrapple = false;
+        if(PlayerVar != null)
+            PlayerVar.HasGrapple = false;
+    }
+    [Button("Unlock Gloves")]
+    public void LockGloves()
+    {
+        _hasGloves = false;
+        if(PlayerVar != null)
+            PlayerVar.HasGloves = false;
     }
 }

@@ -49,6 +49,7 @@ Material:
     - _VelocityMult: 0.83
     - _WindIntensity: 0.98
     - _WindSpeed: 0.5
+    - _WobbleTreshhold: 0.3
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &4903681965226245666

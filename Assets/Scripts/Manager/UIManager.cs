@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
@@ -177,5 +178,9 @@ public class UIManager : MonoSingleton<UIManager>
     public void QuitGame()
     {
         Application.Quit();
+    }
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
