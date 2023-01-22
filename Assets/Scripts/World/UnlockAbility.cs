@@ -10,6 +10,8 @@ public class UnlockAbility : MonoBehaviour
     private bool _unlockGlove;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        SoundManager.Instance.PlaySound("PickUp", 0.2f);
+
         if (_unlockGrapple)
             GameManager.Instance.UnlockGrapple();
         if (_unlockGlove)

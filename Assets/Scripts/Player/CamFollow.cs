@@ -10,4 +10,13 @@ public class CamFollow : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, Target.position + Offset, 0.07f);
     }
+
+    public string DestroyAnimation;
+    private IEnumerator DestroyDelay()
+    {
+        GetComponent<Animator>().Play(DestroyAnimation);
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
+
+    }
 }

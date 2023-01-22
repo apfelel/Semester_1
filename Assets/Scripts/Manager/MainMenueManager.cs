@@ -36,9 +36,7 @@ public class MainMenueManager : MonoBehaviour
     public void StartGame()
     {
         GameManager.Instance.Weakend = true;
-
-        GameManager.Instance.Activate();
-        SceneManager.LoadScene("L_0");
+        SceneManager.LoadScene("Story");
     }
     public void Quit()
     { 
@@ -63,5 +61,10 @@ public class MainMenueManager : MonoBehaviour
         }
         GameManager.Instance.Activate();
         SceneManager.LoadScene(lvl);
+    }
+
+    public void Settings()
+    {
+        UIManager.Instance.OpenSettings();
     }
 }

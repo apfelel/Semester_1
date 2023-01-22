@@ -282,20 +282,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 313164126173863863}
     m_ColliderPaths:
-    - - X: 5000000
-        Y: 5000000
-      - X: -5000000
-        Y: 5000000
-      - X: -5000000
-        Y: -5000000
-      - X: 5000000
-        Y: -5000000
+    - - X: 356900000
+        Y: 205650000
+      - X: -356900000
+        Y: 205650000
+      - X: -356900000
+        Y: -205650000
+      - X: 356900000
+        Y: -205650000
   m_CompositePaths:
     m_Paths:
-    - - {x: 0.4999707, y: -0.5}
-      - {x: 0.4999707, y: 0.5}
-      - {x: -0.5, y: 0.4999707}
-      - {x: -0.4999707, y: -0.5}
+    - - {x: 35.689972, y: -20.565}
+      - {x: 35.689972, y: 20.565}
+      - {x: -35.69, y: 20.564972}
+      - {x: -35.689972, y: -20.565}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &1773841624
@@ -5140,7 +5140,7 @@ GameObject:
   - component: {fileID: 8192226036434369491}
   - component: {fileID: 6276342681595512193}
   - component: {fileID: 1059731776611046594}
-  - component: {fileID: 3787054680819835653}
+  - component: {fileID: 7341525586708041632}
   m_Layer: 8
   m_Name: GFX
   m_TagString: Untagged
@@ -5252,7 +5252,7 @@ MonoBehaviour:
   _flakesBuildDown: {fileID: 1773841627}
   _dash: {fileID: 5184457652653084658}
   _flakes: {fileID: 6816451209552309909}
---- !u!114 &3787054680819835653
+--- !u!114 &7341525586708041632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5266,19 +5266,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
   m_ComponentVersion: 1
-  m_HasRenderer: 1
+  m_HasRenderer: 0
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 97648fe000000000d3d8b3c6
   m_ShapePath:
-  - {x: -0.33826065, y: 0.65695095, z: 0}
-  - {x: -0.20114899, y: 1.2824345, z: 0}
-  - {x: 0.19867897, y: 1.2399321, z: 0}
-  - {x: 0.23320007, y: 0.58411837, z: 0}
-  m_ShapePathHash: -559373867
+  - {x: -0.27288818, y: 0.6116929, z: 0}
+  - {x: -0.19612312, y: 1.0863161, z: 0}
+  - {x: 0.077991486, y: 1.1041579, z: 0}
+  - {x: 0.07228279, y: 0.5690322, z: 0}
+  m_ShapePathHash: -1343342678
   m_Mesh: {fileID: 0}
-  m_InstanceId: 98914
+  m_InstanceId: 57062
 --- !u!1 &1250266278485482548
 GameObject:
   m_ObjectHideFlags: 0
@@ -15532,7 +15532,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.627451, b: 0, a: 1}
   m_FlipX: 0
@@ -20668,7 +20668,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5184457652194155446}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.80000055, y: 2.4000006, z: -10}
+  m_LocalPosition: {x: 0.80000114, y: 2.4000006, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25926,7 +25926,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5184457653662716040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.38580072, y: 2.2750502, z: -10}
+  m_LocalPosition: {x: 1.1800003, y: 2.4000006, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25967,7 +25967,7 @@ Camera:
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1911
+    m_Bits: 6007
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

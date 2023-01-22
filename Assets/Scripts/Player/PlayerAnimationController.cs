@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System.Linq;
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]
@@ -133,13 +132,13 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (!_playerVar.IsHooked)
         {
-            if (_rb.velocity.x < -0.1f)
+            if (_rb.velocity.x < -0.3f)
             {
                 _gfx.flipX = true;
                 _rotationObjectX.transform.rotation = Quaternion.Euler(0, 180, 0);
                 //_rotationObject.transform.localRotation = _gfx.transform.rotation;
             }
-            if (_rb.velocity.x > 0.1f)
+            if (_rb.velocity.x > 0.3f)
             {
                 _gfx.flipX = false;
                 _rotationObjectX.transform.rotation = Quaternion.Euler(0, 0, 0);

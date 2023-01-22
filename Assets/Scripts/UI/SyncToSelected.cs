@@ -10,6 +10,7 @@ public class SyncToSelected : MonoBehaviour
     private SelectOnHover _selected;
 
     private GameObject _selectedGameObject;
+
     void Update()
     {
         if (_selectedGameObject != EventSystem.current.currentSelectedGameObject)

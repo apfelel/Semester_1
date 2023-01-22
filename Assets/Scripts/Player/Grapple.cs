@@ -51,7 +51,7 @@ public class Grapple : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(_joint != null)
+        if(_joint?.enabled == true)
         {
             if (_playerVar.IsGrounded)
             {
@@ -101,17 +101,20 @@ public class Grapple : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(_joint != null)
+        if(_joint?.enabled == true)
             DrawRope();
     }
     public void StartGrapple()
     {
+        if (_playerVar.IsHooked) return;
         var anchor = GetAvailableHook();
         if (anchor == null) return;
         RopeSegments.Add(anchor.transform.position);
         if (RopeSegments.Count == 0) return;
 
-        _joint = gameObject.AddComponent<SpringJoint2D>();
+        if(_joint == null)
+            _joint = gameObject.AddComponent<SpringJoint2D>();
+        _joint.enabled = true;
         _joint.autoConfigureConnectedAnchor = false;
         _joint.autoConfigureDistance = false;
         _joint.connectedAnchor = CurAnchor;
@@ -133,7 +136,7 @@ public class Grapple : MonoBehaviour
         SoundManager.Instance.PlaySound("GrappleDrawInStart", 0.7f);
         RopeSegments = new List<Vector3>();
         _rb.velocity = _rb.velocity * 1.10f;
-        Destroy(GetComponent<SpringJoint2D>());
+        _joint.enabled = false;
         _ropeLine.positionCount = 0;
         _playerVar.IsHooked = false;
     }

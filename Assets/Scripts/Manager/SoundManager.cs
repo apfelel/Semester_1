@@ -60,7 +60,7 @@ public class SoundManager : MonoSingleton<SoundManager>
             _masterVolume = 1;
             PlayerPrefs.SetFloat("MasterVolume", 1);
         }
-        ChangeVolume(AudioNames.SFX, _masterVolume);
+        ChangeVolume(AudioNames.Master, _masterVolume);
 
         var _ambientVolume = PlayerPrefs.GetFloat("AmbientVolume", -1);
         if (_ambientVolume == -1)
@@ -68,7 +68,7 @@ public class SoundManager : MonoSingleton<SoundManager>
             _ambientVolume = 1;
             PlayerPrefs.SetFloat("AmbientVolume", 1);
         }
-        ChangeVolume(AudioNames.SFX, _ambientVolume);
+        ChangeVolume(AudioNames.Ambient, _ambientVolume);
 
         var _musicVolume = PlayerPrefs.GetFloat("MusicVolume", -1);
         if (_musicVolume == -1)

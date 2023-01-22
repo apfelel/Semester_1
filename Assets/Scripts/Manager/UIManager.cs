@@ -181,6 +181,8 @@ public class UIManager : MonoSingleton<UIManager>
     }
     public void BackToMenu()
     {
+        GameManager.Instance.Deactivate();
+        UnPause();
         SceneManager.LoadScene("MainMenu");
     }
 }

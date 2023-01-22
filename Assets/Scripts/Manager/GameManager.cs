@@ -168,7 +168,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
         Debug.Log(SceneManager.GetActiveScene().name);
         Debug.Log(_firstLVLZoom);
-        if (SceneManager.GetActiveScene().name == "L_0" & !_firstLVLZoom)
+        if (SceneManager.GetActiveScene().name == "L_0" && PlayerVar.IsWeakened)
         {
             _firstLVLZoom = true;
             ChangeScreensize(5);
@@ -270,14 +270,12 @@ public class GameManager : MonoSingleton<GameManager>
             PlayerVar.HasGloves = true;
     }
 
-    [Button("Unlock Grapple")]
     public void LockGrapple()
     {
         _hasGrapple = false;
         if(PlayerVar != null)
             PlayerVar.HasGrapple = false;
     }
-    [Button("Unlock Gloves")]
     public void LockGloves()
     {
         _hasGloves = false;
