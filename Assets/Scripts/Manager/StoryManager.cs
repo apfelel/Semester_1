@@ -70,7 +70,7 @@ public class StoryManager : MonoBehaviour
 
     private void Update()
     {
-        if(_playerInputActions.Player.Jump.ReadValue<float>() != 0 || _playerInputActions.Player.Pause.ReadValue<float>() != 0)
+        if(_jumpAction.ReadValue<float>() != 0 || _pauseAction.ReadValue<float>() != 0)
         {
             _skipTimer += Time.deltaTime;
             if(_skipTimer > 2)

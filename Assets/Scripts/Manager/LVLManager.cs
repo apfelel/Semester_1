@@ -13,4 +13,6 @@ public class LVLManager :MonoSingleton<LVLManager>
     public string AmbientName;
 
     public GameManager.Direction DefaultExit;
+
+    public bool HasGloves, HasGrapple;
 }

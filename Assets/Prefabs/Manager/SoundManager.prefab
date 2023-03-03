@@ -183,7 +183,6 @@ MonoBehaviour:
     - {fileID: 8300000, guid: fbe5057d56321214a9d3393b183451a6, type: 3}
     - {fileID: 8300000, guid: d36bde48fcbc4d4428fa60aabd996d55, type: 3}
     - {fileID: 8300000, guid: c0c563bdd1a75b4459f7c41b33bc2edd, type: 3}
-    - {fileID: 8300000, guid: 515269699ac95464db40a0678c1343d1, type: 3}
     - {fileID: 8300000, guid: 69fd37a88094006419662a9225addc5b, type: 3}
     - {fileID: 8300000, guid: ecb3277f9910afc4b97077f0038a3aea, type: 3}
     - {fileID: 8300000, guid: db79e8b02bd18b740b1d3bd3ddd97602, type: 3}
@@ -241,7 +240,7 @@ MonoBehaviour:
   - Name: Mystery
     Clip: {fileID: 8300000, guid: 2247b164815efbd4e92ba2cd446aa113, type: 3}
   - Name: Hope
-    Clip: {fileID: 8300000, guid: dd9aa31946bf4c54baf7aab82212bdd5, type: 3}
+    Clip: {fileID: 8300000, guid: 9c8f9aec9f03f224cb1fc5da9f0e70af, type: 3}
   - Name: L_7
     Clip: {fileID: 8300000, guid: 767c77c429f0f4045b75b0a1cbfabe09, type: 3}
   - Name: L_3_1
@@ -252,6 +251,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 4a09752198c31fb458f72a23eab6f18b, type: 3}
   - Name: Last
     Clip: {fileID: 8300000, guid: be3b41097c8ac144a9faa7a97ef161e0, type: 3}
+  - Name: Story
+    Clip: {fileID: 8300000, guid: 91d9dd5c2074a19449d129ccea4b8343, type: 3}
   _ambientList:
   - Name: Cave
     Clip: {fileID: 8300000, guid: 097791fafed6b7640a082a7b23221c89, type: 3}

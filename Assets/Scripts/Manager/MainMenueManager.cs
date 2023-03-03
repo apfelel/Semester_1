@@ -17,8 +17,7 @@ public class MainMenueManager : MonoBehaviour
     private void Start()
     {
         _start.Select();
-        GameManager.Instance.LockGloves();
-        GameManager.Instance.LockGrapple();
+        GameManager.Instance.ResetValues();
     }
     private void Update()
     {
@@ -60,6 +59,7 @@ public class MainMenueManager : MonoBehaviour
             GameManager.Instance.Weakend = true;
         }
         GameManager.Instance.Activate();
+        GameManager.Instance.SpawnedIn = true;
         SceneManager.LoadScene(lvl);
     }
 

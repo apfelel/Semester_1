@@ -59,9 +59,9 @@ public class GameManager : MonoSingleton<GameManager>
 
     [HideInInspector]
     public bool Weakend;
+    [HideInInspector]
+    public bool SpawnedIn;
 
-
-    private bool _firstLVLZoom = false;
     public Action<float> OnScreensizeChange;
 
     public void ChangeScreensize(float size)
@@ -115,6 +115,14 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerAnimController.DeathAnim();
         StartCoroutine(DeathDelay());
     }
+
+    public void ResetValues()
+    {
+        LockGloves();
+        LockGrapple();
+        _exit = null;
+        SpawnedIn = false;
+    }
     private IEnumerator DeathDelay()
     {
         PlayerCinematic.Freeze(1);
@@ -160,17 +168,21 @@ public class GameManager : MonoSingleton<GameManager>
     }
     private void OnSceneChanged(Scene arg0, LoadSceneMode arg1)
     {
+        if(SpawnedIn)
+        {
+            if(LVLManager.Instance.HasGloves)
+                UnlockGloves();
+            if (LVLManager.Instance.HasGrapple)
+                UnlockGrapple();
+        }
         _spawnPoint = null;
         ReloadPlayer();
         if (LVLManager.Instance != null)
         {
             ChangeScreensize(LVLManager.Instance.CamSize);
         }
-        Debug.Log(SceneManager.GetActiveScene().name);
-        Debug.Log(_firstLVLZoom);
         if (SceneManager.GetActiveScene().name == "L_0" && PlayerVar.IsWeakened)
         {
-            _firstLVLZoom = true;
             ChangeScreensize(5);
         }
         else

@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Studio MaluM
-  productName: Flame of Faith
+  productName: Cassandra - Flame of Faith
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.03497687, g: 0.03497687, b: 0.05660379, a: 1}
@@ -274,7 +274,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: db0c763584fb6824eaa0b138be7a2da1, type: 3}
+      m_Icon: {fileID: 2800000, guid: da9a1c44ba938ea4383bc145337ab614, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -581,7 +581,7 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Server: 1
-    Standalone: 1
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
