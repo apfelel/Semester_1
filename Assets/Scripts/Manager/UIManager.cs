@@ -93,6 +93,10 @@ public class UIManager : MonoSingleton<UIManager>
         Time.timeScale = 1f;
     }
 
+    public void ResetGemCount(int amount = 0)
+    {
+        _trueGemCount = amount;
+    }
     public void SwitchPause()
     {
         if (IsPaused)

@@ -210,7 +210,7 @@ MonoBehaviour:
   _vCam: {fileID: 5102143495130334531}
   _resetOnMove: 1
   _smoothPath: {fileID: 5102143495038373671}
-  _delayToSwitch: 0.5
+  _delayToSwitch: 0.2
 --- !u!212 &1060367168937631558
 SpriteRenderer:
   m_ObjectHideFlags: 0

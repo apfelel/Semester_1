@@ -102,6 +102,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         SceneManager.sceneLoaded += OnSceneChanged;
         IsActive = true;
+        _collectibles = 0;
+        UIManager.Instance.ResetGemCount();
     }
     public void Deactivate()
     {
@@ -170,10 +172,22 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if(SpawnedIn)
         {
+            if(SceneManager.GetActiveScene().name == "L_0")
+            {
+                UIManager.Instance.ResetGemCount(0);
+                _collectibles = 0;
+            }
+            else
+            {
+                UIManager.Instance.ResetGemCount(1);
+                _collectibles = 1;
+            }
+            
             if(LVLManager.Instance.HasGloves)
                 UnlockGloves();
             if (LVLManager.Instance.HasGrapple)
                 UnlockGrapple();
+            SpawnedIn = false;
         }
         _spawnPoint = null;
         ReloadPlayer();
