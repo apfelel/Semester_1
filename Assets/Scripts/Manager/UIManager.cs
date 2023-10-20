@@ -95,7 +95,10 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ResetGemCount(int amount = 0)
     {
+        _shownGemCount = amount;
         _trueGemCount = amount;
+        _gemDelayedCountTxt.text = amount.ToString();
+        _gemCountTxt.text = amount.ToString();
     }
     public void SwitchPause()
     {
