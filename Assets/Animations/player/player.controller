@@ -428,7 +428,7 @@ AnimatorStateMachine:
     m_Position: {x: -200, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4390153283554382103}
-    m_Position: {x: -320, y: 100, z: 0}
+    m_Position: {x: -280, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 33077694327611734}
     m_Position: {x: 50, y: 10, z: 0}
@@ -949,7 +949,7 @@ BlendTree:
   m_BlendParameter: VelY
   m_BlendParameterY: VelY
   m_MinThreshold: -5
-  m_MaxThreshold: 5
+  m_MaxThreshold: 8
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
